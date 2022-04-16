@@ -13,6 +13,9 @@
     <groupId>dev.ritam</groupId>
     <artifactId>return_order_management</artifactId>
     <version>1.0</version>
+    <modules>
+        <module>service_registry</module>
+    </modules>
     <name>return_order_management</name>
     <description>Return order management backend</description>
     <packaging>pom</packaging>
