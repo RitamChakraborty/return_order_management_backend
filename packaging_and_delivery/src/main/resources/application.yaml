@@ -4,3 +4,12 @@ server:
 spring:
   application:
     name: packaging_and_delivery
+
+packaging_items:
+  - integral_item: 100
+    accessory: 50
+    protective_sleath: 50
+
+delivery_items:
+  - integral_item: 200
+    accessory: 100
