@@ -16,6 +16,7 @@
     <modules>
         <module>service_registry</module>
         <module>config_server</module>
+        <module>api_gateway</module>
     </modules>
     <name>return_order_management</name>
     <description>Return order management backend</description>
