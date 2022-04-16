@@ -13,14 +13,16 @@
     <groupId>dev.ritam</groupId>
     <artifactId>return_order_management</artifactId>
     <version>1.0</version>
+    <name>return_order_management</name>
+    <description>Return order management backend</description>
+    <packaging>pom</packaging>
+
     <modules>
         <module>service_registry</module>
         <module>config_server</module>
         <module>api_gateway</module>
+        <module>component_processing</module>
     </modules>
-    <name>return_order_management</name>
-    <description>Return order management backend</description>
-    <packaging>pom</packaging>
 
     <properties>
         <java.version>11</java.version>
