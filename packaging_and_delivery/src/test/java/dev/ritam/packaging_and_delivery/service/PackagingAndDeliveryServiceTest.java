@@ -1,7 +1,6 @@
 package dev.ritam.packaging_and_delivery.service;
 
 import dev.ritam.packaging_and_delivery.exception.ComponentTypeNotFoundException;
-import dev.ritam.packaging_and_delivery.model.PackagingAndDeliveryRequest;
 import dev.ritam.packaging_and_delivery.model.PackagingAndDeliveryResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,12 +14,10 @@ class PackagingAndDeliveryServiceTest {
 
     @Test
     void getPackagingAndDeliveryCharge() {
-        PackagingAndDeliveryRequest packagingAndDeliveryRequest = PackagingAndDeliveryRequest.builder()
-                .componentType("integral-item")
-                .count(2)
-                .build();
+        String componentType = "integral-item";
+        int count = 2;
         PackagingAndDeliveryResponse packagingAndDeliveryResponse = packagingAndDeliveryService
-                .getPackagingAndDeliveryCharge(packagingAndDeliveryRequest);
+                .getPackagingAndDeliveryCharge(componentType, count);
         Assertions.assertEquals(packagingAndDeliveryResponse.getPackagingCharge(), 300);
         Assertions.assertEquals(packagingAndDeliveryResponse.getDeliveryCharge(), 400);
     }
@@ -28,13 +25,10 @@ class PackagingAndDeliveryServiceTest {
     @Test
     void getPackagingAndDeliveryChargeUnknownComponentTest() {
         String componentType = "unknown";
-        PackagingAndDeliveryRequest packagingAndDeliveryRequest = PackagingAndDeliveryRequest.builder()
-                .componentType(componentType)
-                .count(2)
-                .build();
+        int count = 2;
         Assertions.assertThrows(
                 ComponentTypeNotFoundException.class,
-                () -> packagingAndDeliveryService.getPackagingAndDeliveryCharge(packagingAndDeliveryRequest),
+                () -> packagingAndDeliveryService.getPackagingAndDeliveryCharge(componentType, count),
                 "Component Type unknown not found"
         );
     }

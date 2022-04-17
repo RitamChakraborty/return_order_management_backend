@@ -4,3 +4,15 @@ server:
 spring:
   application:
     name: component_processing
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+client:
+  value: packaging-and-delivery
+  url: http://localhost:8082

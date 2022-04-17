@@ -1,7 +1,6 @@
 package dev.ritam.packaging_and_delivery.service;
 
 import dev.ritam.packaging_and_delivery.exception.ComponentTypeNotFoundException;
-import dev.ritam.packaging_and_delivery.model.PackagingAndDeliveryRequest;
 import dev.ritam.packaging_and_delivery.model.PackagingAndDeliveryResponse;
 import dev.ritam.packaging_and_delivery.util.PackagingAndDeliveryCosts;
 import lombok.RequiredArgsConstructor;
@@ -18,21 +17,20 @@ public class PackagingAndDeliveryService {
     private static final String PROTECTIVE_SHEATH = "protective-sheath";
 
     public PackagingAndDeliveryResponse getPackagingAndDeliveryCharge(
-            PackagingAndDeliveryRequest packagingAndDeliveryRequest
+            String componentType,
+            int count
     ) throws ComponentTypeNotFoundException {
-        String componentType = packagingAndDeliveryRequest.getComponentType();
-        int quantity = packagingAndDeliveryRequest.getCount();
         Map<String, Integer> packagingItems = packagingAndDeliveryCosts.getPackagingItems();
         Map<String, Integer> deliveryItems = packagingAndDeliveryCosts.getDeliveryItems();
 
         if (packagingItems.containsKey(componentType) &&
                 deliveryItems.containsKey(componentType)) {
             int packagingCharge = (packagingItems.get(componentType) +
-                    packagingItems.get(PROTECTIVE_SHEATH)) * quantity;
-            int deliveryCharge = deliveryItems.get(componentType) * quantity;
+                    packagingItems.get(PROTECTIVE_SHEATH)) * count;
+            int deliveryCharge = deliveryItems.get(componentType) * count;
 
             log.info(String.format("For component Type : %s and count : %s, packaging charge : %s and delivery charge : %s",
-                    componentType, quantity, packagingCharge, deliveryCharge));
+                    componentType, count, packagingCharge, deliveryCharge));
 
             return PackagingAndDeliveryResponse.builder()
                     .packagingCharge(packagingCharge)

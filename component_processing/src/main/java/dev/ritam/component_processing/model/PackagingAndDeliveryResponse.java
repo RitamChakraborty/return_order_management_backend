@@ -1,4 +1,4 @@
-package dev.ritam.packaging_and_delivery.model;
+package dev.ritam.component_processing.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PackagingAndDeliveryRequest {
-    private String componentType;
-    private int count;
+public class PackagingAndDeliveryResponse {
+    private int packagingCharge;
+    private int deliveryCharge;
 }
