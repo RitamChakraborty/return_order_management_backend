@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PackagingAndDeliveryRequest {
-    private String componentType;
-    private int count;
+public class PackagingAndDeliveryResponse {
+    private int packagingCharge;
+    private int deliveryCharge;
 }
