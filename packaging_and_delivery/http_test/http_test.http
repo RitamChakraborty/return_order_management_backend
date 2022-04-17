@@ -1,0 +1,19 @@
+### Get packaging and delivery charge for accessory
+GET localhost:8082/packaging-and-delivery/api/packaging-and-delivery-charge
+Content-Type: application/json
+Accept: application/json
+
+{
+  "componentType": "accessory",
+  "count": 5
+}
+
+### Get packaging and delivery charge for unknown
+GET localhost:8082/packaging-and-delivery/api/packaging-and-delivery-charge
+Content-Type: application/json
+Accept: application/json
+
+{
+  "componentType": "unknown",
+  "count": 5
+}

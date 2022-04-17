@@ -1,5 +1,8 @@
 server:
   port: 8082
+  error:
+    include-message: always
+    include-binding-errors: always
 
 spring:
   application:
@@ -9,7 +12,7 @@ packaging-and-delivery-cost:
   packaging-items:
     integral-item: 100
     accessory: 50
-    protective-sleath: 50
+    protective-sheath: 50
 
   delivery-items:
     integral-item: 200

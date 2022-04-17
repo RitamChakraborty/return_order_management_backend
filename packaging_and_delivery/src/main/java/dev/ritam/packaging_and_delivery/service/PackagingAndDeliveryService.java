@@ -15,6 +15,7 @@ import java.util.Map;
 @Slf4j
 public class PackagingAndDeliveryService {
     private final PackagingAndDeliveryCosts packagingAndDeliveryCosts;
+    private static final String PROTECTIVE_SHEATH = "protective-sheath";
 
     public PackagingAndDeliveryResponse getPackagingAndDeliveryCharge(
             PackagingAndDeliveryRequest packagingAndDeliveryRequest
@@ -27,8 +28,11 @@ public class PackagingAndDeliveryService {
         if (packagingItems.containsKey(componentType) &&
                 deliveryItems.containsKey(componentType)) {
             int packagingCharge = (packagingItems.get(componentType) +
-                    packagingItems.get("protective-s")) * quantity;
+                    packagingItems.get(PROTECTIVE_SHEATH)) * quantity;
             int deliveryCharge = deliveryItems.get(componentType) * quantity;
+
+            log.info(String.format("For component Type : %s and count : %s, packaging charge : %s and delivery charge : %s",
+                    componentType, quantity, packagingCharge, deliveryCharge));
 
             return PackagingAndDeliveryResponse.builder()
                     .packagingCharge(packagingCharge)
