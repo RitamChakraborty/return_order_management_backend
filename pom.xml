@@ -23,6 +23,7 @@
         <module>api_gateway</module>
         <module>component_processing</module>
         <module>packaging_and_delivery</module>
+        <module>test_api</module>
     </modules>
 
     <properties>

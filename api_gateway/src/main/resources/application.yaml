@@ -4,26 +4,10 @@ server:
 spring:
   application:
     name: api-gateway
-  config:
-    import:
   cloud:
     gateway:
       routes:
         - id: component-processing
-          uri: lb://component-procssing
+          uri: http://localhost:8081
           predicates:
-            - Path=/component-procssing/api/**
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
+            - Path=/component-processing/api/**
