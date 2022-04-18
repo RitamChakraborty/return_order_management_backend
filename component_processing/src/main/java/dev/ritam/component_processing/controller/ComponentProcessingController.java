@@ -17,6 +17,6 @@ public class ComponentProcessingController {
 
     @GetMapping("/process-detail")
     public ResponseEntity<?> processDetail(@RequestBody ProcessRequest processRequest) {
-        return null;
+        return ResponseEntity.ok(componentProcessingService.processDetail(processRequest));
     }
 }
