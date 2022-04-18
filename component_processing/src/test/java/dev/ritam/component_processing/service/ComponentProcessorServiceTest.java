@@ -1,6 +1,7 @@
 package dev.ritam.component_processing.service;
 
 
+import dev.ritam.component_processing.exception.PackagingAndDeliveryServiceException;
 import dev.ritam.component_processing.model.ProcessRequest;
 import dev.ritam.component_processing.model.ProcessResponse;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +24,22 @@ class ComponentProcessorServiceTest {
                 .contactNumber("9876543210")
                 .build();
         ProcessResponse processResponse = componentProcessingService.processDetail(processRequest);
-        System.out.println(processResponse);
         Assertions.assertEquals(300, processResponse.getProcessingCharge());
+    }
+
+    @Test
+    void processDetailWithException() {
+        ProcessRequest processRequest = ProcessRequest.builder()
+                .componentName("Shifters")
+                .componentType("unknown")
+                .name("Ritam")
+                .quantity(2)
+                .contactNumber("9876543210")
+                .build();
+        Assertions.assertThrows(
+                PackagingAndDeliveryServiceException.class,
+                () -> componentProcessingService.processDetail(processRequest),
+                "Packaging and Delivery microservice failed with status : 500"
+        );
     }
 }

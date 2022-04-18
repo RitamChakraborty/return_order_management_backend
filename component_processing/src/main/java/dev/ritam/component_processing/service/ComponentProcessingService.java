@@ -23,35 +23,44 @@ public class ComponentProcessingService {
     public ProcessResponse processDetail(ProcessRequest processRequest) {
         String component = processRequest.getComponentType();
         int count = processRequest.getQuantity();
-        ResponseEntity<PackagingAndDeliveryResponse> responseEntity = packagingAndDeliveryClient
-                .getPackagingAndDeliveryCharge(component, count);
+        try {
+            ResponseEntity<PackagingAndDeliveryResponse> responseEntity = packagingAndDeliveryClient
+                    .getPackagingAndDeliveryCharge(component, count);
 
-        if (responseEntity.getStatusCode().is2xxSuccessful() && responseEntity.hasBody()) {
-            PackagingAndDeliveryResponse packagingAndDeliveryResponse = responseEntity.getBody();
+            if (responseEntity.getStatusCode().is2xxSuccessful() && responseEntity.hasBody()) {
+                PackagingAndDeliveryResponse packagingAndDeliveryResponse = responseEntity.getBody();
 
-            if (packagingAndDeliveryResponse != null) {
-                ComponentType componentType = component.equals("accessory")
-                        ? ComponentType.ACCESSORY
-                        : ComponentType.INTEGRAL_ITEM;
-                ComponentProcessor componentProcessor = componentFactory.make(
-                        componentType, packagingAndDeliveryResponse
-                );
+                if (packagingAndDeliveryResponse != null) {
+                    ComponentType componentType = component.equals("accessory")
+                            ? ComponentType.ACCESSORY
+                            : ComponentType.INTEGRAL_ITEM;
+                    ComponentProcessor componentProcessor = componentFactory.make(
+                            componentType, packagingAndDeliveryResponse
+                    );
 
-                componentProcessor.setProcessingCharge(
-                        componentProcessingDefaultValues.getProcessingCharge(componentType));
-                componentProcessor.setDuration(
-                        componentProcessingDefaultValues.getProcessingDuration(componentType));
+                    componentProcessor.setProcessingCharge(
+                            componentProcessingDefaultValues.getProcessingCharge(componentType));
+                    componentProcessor.setDuration(
+                            componentProcessingDefaultValues.getProcessingDuration(componentType));
 
-                return componentProcessor.processComponent();
+                    return componentProcessor.processComponent();
+                } else {
+                    String errMsg = "Packaging and Delivery microservice returned null object";
+                    log.error(errMsg);
+                    throw new PackagingAndDeliveryServiceException(errMsg);
+                }
             } else {
-                String errMsg = "Packaging and Delivery microservice returned null object";
+                String errMsg = String.format(
+                        "Packaging and Delivery microservice failed with status : %s",
+                        responseEntity.getStatusCode()
+                );
                 log.error(errMsg);
                 throw new PackagingAndDeliveryServiceException(errMsg);
             }
-        } else {
+        } catch (Exception e) {
             String errMsg = String.format(
-                    "Packaging and Delivery microservice failed with status : %s",
-                    responseEntity.getStatusCode()
+                    "Packaging and Delivery microservice failed with message : %s",
+                    e.getMessage()
             );
             log.error(errMsg);
             throw new PackagingAndDeliveryServiceException(errMsg);
