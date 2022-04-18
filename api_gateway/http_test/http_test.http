@@ -1,5 +1,5 @@
 # Get process defail
-GET http://localhost:8081/component-processing/api/process-detail
+GET http://localhost:8181/component-processing/api/process-detail
 Content-Type: application/json
 Accept: application/json
 

@@ -3,7 +3,16 @@ server:
 
 spring:
   application:
-    name: api_gateway
+    name: api-gateway
+  config:
+    import:
+  cloud:
+    gateway:
+      routes:
+        - id: component-processing
+          uri: lb://component-procssing
+          predicates:
+            - Path=/component-procssing/api/**
 
 hystrix:
   command:

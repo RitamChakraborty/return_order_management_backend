@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: component_processing
+    name: component-processing
 
 feign:
   client:

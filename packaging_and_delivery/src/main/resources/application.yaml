@@ -6,7 +6,7 @@ server:
 
 spring:
   application:
-    name: packaging_and_delivery
+    name: packaging-and-delivery
 
 packaging-and-delivery-cost:
   packaging-items:
