@@ -2,12 +2,14 @@ package dev.ritam.component_processing.service;
 
 
 import dev.ritam.component_processing.model.ProcessRequest;
+import dev.ritam.component_processing.model.ProcessResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ComponentProcessingServiceTest {
+class ComponentProcessorServiceTest {
     @Autowired
     private ComponentProcessingService componentProcessingService;
 
@@ -20,6 +22,8 @@ class ComponentProcessingServiceTest {
                 .quantity(2)
                 .contactNumber("9876543210")
                 .build();
-        componentProcessingService.processDetail(processRequest);
+        ProcessResponse processResponse = componentProcessingService.processDetail(processRequest);
+        System.out.println(processResponse);
+        Assertions.assertEquals(300, processResponse.getProcessingCharge());
     }
 }
