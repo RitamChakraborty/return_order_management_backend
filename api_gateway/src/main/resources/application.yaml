@@ -8,6 +8,6 @@ spring:
     gateway:
       routes:
         - id: component-processing
-          uri: http://localhost:8081
+          uri: lb://component-processing
           predicates:
             - Path=/component-processing/api/**
