@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL=debug:
+        type:
+          descriptor:
+            sql: trace
+
+spring:
+  application:
+    name: authorization
+  sql:
+    init:
+      platform: h2
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:return-order-management
+    username: ${H2_USERNAME}
+    password: ${H2_PASSWORD}
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
