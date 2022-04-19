@@ -1,4 +1,4 @@
-# Get process defail
+### Get process defail
 GET http://localhost:8081/component-processing/api/process-detail
 Content-Type: application/json
 Accept: application/json
@@ -9,4 +9,17 @@ Accept: application/json
   "componentType": "integral-item",
   "componentName": "lipstick",
   "quantity": 5
+}
+
+### Get process defail with errors
+GET http://localhost:8081/component-processing/api/process-detail
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "",
+  "contactNumber": "798054638",
+  "componentType": "",
+  "componentName": "",
+  "quantity": 0
 }
