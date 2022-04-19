@@ -23,7 +23,7 @@ public class PackagingAndDeliveryController {
             @NotBlank(message = "Component Type can not be empty")
                     String componentType,
             @RequestParam
-            @Min(value = 0, message = "Count must be more than 0")
+            @Min(value = 1, message = "Count must be more than 0")
                     Integer count
     ) {
         return ResponseEntity.ok(packagingAndDeliveryService
