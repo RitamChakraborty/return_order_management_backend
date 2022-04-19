@@ -16,8 +16,8 @@ spring:
           filters:
             - name: CircuitBreaker
               args:
-                name: component-processing
-                fallbackuri: forward:/component-processing-fallback
+                name: component-processing-fallback
+                fallbackUri: forward:/component-processing-fallback
           metadata:
             response-timeout: 1000
             connect-timeout: 1000
@@ -26,7 +26,7 @@ spring:
         response-timeout: 1s
   mvc:
     async:
-      request-timeout: 1000
+      request-timeout: 10000
 
 hystrix:
   command:
@@ -35,3 +35,9 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 1000
+
+resilience4j:
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 1s
