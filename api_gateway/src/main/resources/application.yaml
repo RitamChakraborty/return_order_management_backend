@@ -1,5 +1,7 @@
 server:
   port: 8181
+  netty:
+    connection-timeout: 10000
 
 spring:
   application:
@@ -11,3 +13,25 @@ spring:
           uri: lb://component-processing
           predicates:
             - Path=/component-processing/api/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: component-processing
+                fallbackuri: forward:/component-processing-fallback
+          metadata:
+            response-timeout: 1000
+            connect-timeout: 1000
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 1s
+  mvc:
+    async:
+      request-timeout: 1000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
