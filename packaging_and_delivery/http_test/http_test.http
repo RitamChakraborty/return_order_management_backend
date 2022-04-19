@@ -5,3 +5,15 @@ Content-Type: application/json
 ### Get packaging and delivery charge for unknown
 GET localhost:8082/packaging-and-delivery/api/packaging-and-delivery-charge?componentType=unknown&count=2
 Content-Type: application/json
+
+### Get packaging and delivery charge with blank component type
+GET localhost:8082/packaging-and-delivery/api/packaging-and-delivery-charge?componentType=&count=2
+Content-Type: application/json
+
+### Get packaging and delivery charge for accessory with negative count
+GET localhost:8082/packaging-and-delivery/api/packaging-and-delivery-charge?componentType=accessory&count=-2
+Content-Type: application/json
+
+### Get packaging and delivery charge with blank component type and negative count
+GET localhost:8082/packaging-and-delivery/api/packaging-and-delivery-charge?componentType=&count=-2
+Content-Type: application/json
