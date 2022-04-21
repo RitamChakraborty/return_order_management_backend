@@ -1,6 +1,6 @@
 insert into customer(email, password, first_name, last_name, contact_number)
 values ('ritam@gmail.com',
-        '$2a$10$UFNC3e72eJcTXHi.kmXyBe3uVTptd2tI84gt66Qo30J/zmGBJ2ky.',
+        '$2a$10$6G78tWWm1OTLG7kjh6Jp8.Stb1McyXnzbnLRlPKefRRkNW7ZMG83y',
         'ritam',
         'mahanty',
         '9876543210');

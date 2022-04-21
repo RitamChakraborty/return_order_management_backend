@@ -1,5 +1,6 @@
 package dev.ritam.authorization.configuration;
 
+import dev.ritam.authorization.filter.AuthorizationFilter;
 import dev.ritam.authorization.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,16 +20,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customerService)
-                .passwordEncoder(passwordEncoder);
-    }
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customerService)
+                .passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -42,7 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(new AuthorizationFilter(authenticationManagerBean()));
 
         http.csrf().disable();
         http.headers().frameOptions().disable();

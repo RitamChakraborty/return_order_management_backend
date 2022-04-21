@@ -1,0 +1,12 @@
+### Login test with correct credential
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+username=ritam@gmail.com&password=password
+
+
+### Login test with wrong credential
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+username=ritam@gmail.com&password=blah
