@@ -11,4 +11,9 @@ public class FallbackController {
     public ResponseEntity<?> componentProcessingFallback() {
         throw new RequestTimeoutException("Component Processing Service is down. Try after some time");
     }
+
+    @GetMapping("/authorization-fallback")
+    public ResponseEntity<?> authorizationFallback() {
+        throw new RequestTimeoutException("Authorization Service is down. Try after some time");
+    }
 }

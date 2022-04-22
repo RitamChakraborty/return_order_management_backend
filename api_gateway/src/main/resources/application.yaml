@@ -1,43 +1,23 @@
 server:
   port: 8181
-  netty:
-    connection-timeout: 10000
 
 spring:
   application:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-        - id: component-processing
-          uri: lb://component-processing
-          predicates:
-            - Path=/component-processing/api/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: component-processing-fallback
-                fallbackUri: forward:/component-processing-fallback
-          metadata:
-            response-timeout: 1000
-            connect-timeout: 1000
-      httpclient:
-        connect-timeout: 1000
-        response-timeout: 1s
-  mvc:
-    async:
-      request-timeout: 10000
+      metrics:
+        enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 1000
-
-resilience4j:
-  timelimiter:
-    configs:
-      default:
-        timeout-duration: 1s
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
