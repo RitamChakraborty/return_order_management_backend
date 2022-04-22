@@ -13,6 +13,11 @@ public class RouteConfiguration {
                 .routes()
                 .route(predicateSpec -> predicateSpec
                         .path("/component-processing/**")
+                        .filters(gatewayFilterSpec -> gatewayFilterSpec
+                                .circuitBreaker(config -> config
+                                        .setFallbackUri("forward:/component-processing-fallback")
+                                )
+                        )
                         .uri("lb://component-processing/")
                 )
                 .route(predicateSpec -> predicateSpec
