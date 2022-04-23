@@ -2,6 +2,7 @@ package dev.ritam.authorization.configuration;
 
 import dev.ritam.authorization.filter.AuthenticationFilter;
 import dev.ritam.authorization.filter.AuthorizationFilter;
+import dev.ritam.authorization.filter.ExceptionHandlerFilter;
 import dev.ritam.authorization.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;
+    private final ExceptionHandlerFilter exceptionHandlerFilter;
 
     @Bean
     @Override
@@ -45,8 +48,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilter(new AuthorizationFilter(authenticationManagerBean()));
+                .addFilter(new AuthorizationFilter(authenticationManagerBean()))
+                .addFilterBefore(exceptionHandlerFilter, LogoutFilter.class)
+                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
