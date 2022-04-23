@@ -1,5 +1,6 @@
 package dev.ritam.authorization.configuration;
 
+import dev.ritam.authorization.filter.AuthenticationFilter;
 import dev.ritam.authorization.filter.AuthorizationFilter;
 import dev.ritam.authorization.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -35,9 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(
-                        "/h2-console/**"
-                )
+                .antMatchers("/h2-console/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(new AuthorizationFilter(authenticationManagerBean()));
 
         http.csrf().disable();
