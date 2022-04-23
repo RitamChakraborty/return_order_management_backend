@@ -31,7 +31,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             @NonNull
                     FilterChain filterChain
     ) throws ServletException, IOException {
-        if (!request.getServletPath().equals("/login")) {
+        if (
+                !request.getServletPath().equals("/login") &&
+                        !request.getServletPath().equals("/signup")
+        ) {
             String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
             if (token != null && token.startsWith("Bearer ")) {
