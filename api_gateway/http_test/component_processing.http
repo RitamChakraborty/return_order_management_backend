@@ -1,4 +1,19 @@
-### Get process defail
+### Get process defail with Authorization header
+GET http://localhost:8181/component-processing/api/process-detail
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzEzMTQxNTI0NDAyMDB9.a6fdMPj5QIdQ_BwBVj99UyYeLMPV-zRWJCHG3mNfkjkkjo_yzvp7hNF2reKLYjHYtdWkS6iNloAkdfEUJ6m03g
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Miss Mahanty",
+  "contactNumber": "7980546384",
+  "componentType": "integral-item",
+  "componentName": "lipstick",
+  "quantity": 5
+}
+
+
+### Get process defail without Authorization header
 GET http://localhost:8181/component-processing/api/process-detail
 Content-Type: application/json
 Accept: application/json
@@ -13,6 +28,7 @@ Accept: application/json
 
 ### Get process defail for worong component type
 GET http://localhost:8181/component-processing/api/process-detail
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzEzMTQxNTI0NDAyMDB9.a6fdMPj5QIdQ_BwBVj99UyYeLMPV-zRWJCHG3mNfkjkkjo_yzvp7hNF2reKLYjHYtdWkS6iNloAkdfEUJ6m03g
 Content-Type: application/json
 Accept: application/json
 
