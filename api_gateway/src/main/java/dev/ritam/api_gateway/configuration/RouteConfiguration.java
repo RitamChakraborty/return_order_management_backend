@@ -28,7 +28,7 @@ public class RouteConfiguration {
                 )
                 .route(predicateSpec -> predicateSpec
                         .path("/**")
-                        .uri("http://localhost:8080/")
+                        .uri("lb://authorization/")
                 )
                 .build();
     }

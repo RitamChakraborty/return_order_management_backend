@@ -3,12 +3,10 @@ package dev.ritam.component_processing.controller;
 import dev.ritam.component_processing.model.ProcessRequest;
 import dev.ritam.component_processing.service.ComponentProcessingService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -16,15 +14,19 @@ import javax.validation.Valid;
 @RequestMapping("/component-processing/api")
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 public class ComponentProcessingController {
     private final ComponentProcessingService componentProcessingService;
+    private static final String CUSTOMER_EMAIL_HEADER = "x-auth-customer-email";
 
     @GetMapping("/process-detail")
     public ResponseEntity<?> processDetail(
             @RequestBody
             @Valid
-                    ProcessRequest processRequest
+                    ProcessRequest processRequest,
+            @RequestHeader(CUSTOMER_EMAIL_HEADER) String customerEmail
     ) {
+        log.info(String.format("Customer email address : %s", customerEmail));
         return ResponseEntity.ok(componentProcessingService.processDetail(processRequest));
     }
 }

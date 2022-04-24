@@ -1,11 +1,13 @@
 package dev.ritam.api_gateway.filter;
 
 import dev.ritam.api_gateway.exception.AuthenticationTokenNotFoundException;
+import dev.ritam.api_gateway.exception.BadTokenException;
 import dev.ritam.api_gateway.model.CustomerResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
@@ -33,6 +35,7 @@ public class AuthenticationFilter implements GatewayFilter {
                 .uri("http://localhost:8080/authenticate")
                 .header(HttpHeaders.AUTHORIZATION, authorizationHeader)
                 .retrieve()
+                .onStatus(HttpStatus::isError, response -> Mono.error(new BadTokenException("Bad token")))
                 .bodyToMono(CustomerResponse.class)
                 .map(customerResponse -> {
                             exchange

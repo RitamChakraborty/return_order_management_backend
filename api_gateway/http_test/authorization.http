@@ -20,7 +20,7 @@ Accept: application/json
 ### Get Customer with valid token
 GET http://localhost:8181/authenticate
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzEyODQzNjM5NjMwMDB9.p7m5gaEljNkTWs7YB6Ys4BUcFtEW3qFGIl3eHkVGIQXLSgD96VXoLLKNsMrFWO5nobgpbYWs0iDrwKtDWqn3Cw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzE0NjAyMTI2MzM4MDB9.2C2b8oiuLIw6Rnz2T1DwQJ-srSIByOL5730sjvEznXs8N0d2tOTrJ2kVmPhxRsEzHv4z_55IZe8hvdTyHFB4MA
 
 
 ### Get Customer with invalid token
