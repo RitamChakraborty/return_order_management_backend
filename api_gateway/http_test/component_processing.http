@@ -13,6 +13,12 @@ Accept: application/json
 }
 
 
+### Get order defails with Authorization header
+GET http://localhost:8181/component-processing/api/order-details?customerEmail=ritam@gmail.com
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzE0NzA2MjAyMjEyMDB9.HhCV9ydOunzdkglOls5tHPnVHMLelSNT-qeKvpTXxGyA6R_u-eZosE0HgxtLtePMWmydli9caOI0Ur5pch9eCw
+Accept: application/json
+
+
 ### Get process defail without Authorization header
 GET http://localhost:8181/component-processing/api/process-detail
 Content-Type: application/json
