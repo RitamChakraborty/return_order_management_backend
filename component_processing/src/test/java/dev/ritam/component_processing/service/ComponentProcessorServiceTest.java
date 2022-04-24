@@ -23,7 +23,8 @@ class ComponentProcessorServiceTest {
                 .quantity(2)
                 .contactNumber("9876543210")
                 .build();
-        ProcessResponse processResponse = componentProcessingService.processDetail(processRequest);
+        ProcessResponse processResponse = componentProcessingService.processDetail(
+                processRequest, "ritam@gmail.com");
         Assertions.assertEquals(300, processResponse.getProcessingCharge());
     }
 
@@ -38,7 +39,7 @@ class ComponentProcessorServiceTest {
                 .build();
         Assertions.assertThrows(
                 PackagingAndDeliveryServiceException.class,
-                () -> componentProcessingService.processDetail(processRequest),
+                () -> componentProcessingService.processDetail(processRequest, "ritam@gmail.com"),
                 "Packaging and Delivery microservice failed with status : 500"
         );
     }

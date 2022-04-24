@@ -4,9 +4,39 @@ server:
     include-message: always
     include-binding-errors: always
 
+logging:
+  level:
+    org:
+      hibernate:
+        SQL=debug:
+        type:
+          descriptor:
+            sql: trace
+
 spring:
   application:
     name: component-processing
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:return_order_management;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: ritam
+    password: password
+    embedded-database-connection: h2
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 feign:
   client:

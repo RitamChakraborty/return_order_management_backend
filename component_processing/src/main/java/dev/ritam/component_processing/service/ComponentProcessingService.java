@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -19,8 +21,10 @@ public class ComponentProcessingService {
     private final PackagingAndDeliveryClient packagingAndDeliveryClient;
     private final ComponentFactory componentFactory;
     private final ComponentProcessingDefaultValues componentProcessingDefaultValues;
+    private final OrderDetailService orderDetailService;
 
-    public ProcessResponse processDetail(ProcessRequest processRequest) {
+    @Transactional
+    public ProcessResponse processDetail(ProcessRequest processRequest, String customerEmail) {
         String component = processRequest.getComponentType();
         int count = processRequest.getQuantity();
         try {
@@ -43,7 +47,10 @@ public class ComponentProcessingService {
                     componentProcessor.setDuration(
                             componentProcessingDefaultValues.getProcessingDuration(componentType));
 
-                    return componentProcessor.processComponent();
+                    ProcessResponse processResponse = componentProcessor.processComponent();
+                    orderDetailService.addOrderDetail(customerEmail, processRequest, processResponse);
+
+                    return processResponse;
                 } else {
                     String errMsg = "Packaging and Delivery microservice returned null object";
                     log.error(errMsg);

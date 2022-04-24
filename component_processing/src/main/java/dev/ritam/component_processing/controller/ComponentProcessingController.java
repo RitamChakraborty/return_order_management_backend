@@ -26,7 +26,6 @@ public class ComponentProcessingController {
                     ProcessRequest processRequest,
             @RequestHeader(CUSTOMER_EMAIL_HEADER) String customerEmail
     ) {
-        log.info(String.format("Customer email address : %s", customerEmail));
-        return ResponseEntity.ok(componentProcessingService.processDetail(processRequest));
+        return ResponseEntity.ok(componentProcessingService.processDetail(processRequest, customerEmail));
     }
 }
