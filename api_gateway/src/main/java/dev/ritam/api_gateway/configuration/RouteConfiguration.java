@@ -28,6 +28,11 @@ public class RouteConfiguration {
                 )
                 .route(predicateSpec -> predicateSpec
                         .path("/**")
+                        .filters(gatewayFilterSpec -> gatewayFilterSpec
+                                .circuitBreaker(config -> config
+                                        .setFallbackUri("forward:/authorization-fallback")
+                                )
+                        )
                         .uri("lb://authorization/")
                 )
                 .build();

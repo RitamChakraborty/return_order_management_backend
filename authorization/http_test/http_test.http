@@ -5,6 +5,13 @@ Content-Type: application/x-www-form-urlencoded
 username=ritam@gmail.com&password=password
 
 
+### Login test with incorrect request
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+email=ritam@gmail.com&password=password
+
+
 ### Login test with wrong credential
 POST http://localhost:8080/login
 Content-Type: application/x-www-form-urlencoded

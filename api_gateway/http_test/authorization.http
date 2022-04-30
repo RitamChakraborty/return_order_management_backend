@@ -2,7 +2,7 @@
 POST http://localhost:8181/login
 Content-Type: application/x-www-form-urlencoded
 
-username=ritam@gmail.com&password=password
+user=ritam@gmail.com&password=password
 
 
 ### Login test with wrong credential

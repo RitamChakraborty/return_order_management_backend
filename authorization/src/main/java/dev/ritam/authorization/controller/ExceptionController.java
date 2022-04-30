@@ -1,5 +1,6 @@
 package dev.ritam.authorization.controller;
 
+import dev.ritam.authorization.exception.BadRequestException;
 import dev.ritam.authorization.exception.InvalidJWTException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,5 +14,11 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Error> handleInvalidJWTException(InvalidJWTException e) {
         return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Error> handleBadRequestException(BadRequestException e) {
+        return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
