@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.EntityNotFoundException;
+
 @RestControllerAdvice
 public class ExceptionController {
     @ExceptionHandler(InvalidJWTException.class)
@@ -20,5 +22,17 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Error> handleBadRequestException(BadRequestException e) {
         return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<Error> handleEntityNotFoundException(EntityNotFoundException e) {
+        return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<Error> handException(Exception e) {
+        return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 }

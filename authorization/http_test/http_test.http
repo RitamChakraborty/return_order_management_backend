@@ -5,11 +5,24 @@ Content-Type: application/x-www-form-urlencoded
 username=ritam@gmail.com&password=password
 
 
+### Login test with wrong usernme
+POST http://localhost:8181/login
+Content-Type: application/x-www-form-urlencoded
+
+username=pritam@gmail.com&password=password
+
+
 ### Login test with incorrect request
 POST http://localhost:8080/login
 Content-Type: application/x-www-form-urlencoded
 
 email=ritam@gmail.com&password=password
+
+### Login test with incorrect username
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+username=pritam@gmail.com&password=password
 
 
 ### Login test with wrong credential
