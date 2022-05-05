@@ -1,5 +1,5 @@
 ### Get process defail with Authorization header
-GET http://localhost:8181/component-processing/api/process-detail
+POST http://localhost:8181/component-processing/api/process-detail
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzE0NzA2MjAyMjEyMDB9.HhCV9ydOunzdkglOls5tHPnVHMLelSNT-qeKvpTXxGyA6R_u-eZosE0HgxtLtePMWmydli9caOI0Ur5pch9eCw
 Content-Type: application/json
 Accept: application/json

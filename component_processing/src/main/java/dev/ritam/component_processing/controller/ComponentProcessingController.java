@@ -19,7 +19,7 @@ public class ComponentProcessingController {
     private final ComponentProcessingService componentProcessingService;
     private static final String CUSTOMER_EMAIL_HEADER = "x-auth-customer-email";
 
-    @GetMapping("/process-detail")
+    @PostMapping("/process-detail")
     public ResponseEntity<?> processDetail(
             @RequestBody
             @Valid
