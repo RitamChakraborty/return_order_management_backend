@@ -22,4 +22,15 @@ public class OrderDetailController {
                 HttpStatus.OK
         );
     }
+
+    @GetMapping("/order-detail")
+    ResponseEntity<?> getOrderDetailsByCustomerEmail(
+            @RequestParam String customerEmail,
+            @RequestParam Long orderId
+    ) {
+        return new ResponseEntity<>(
+                orderDetailService.getOrderDetailByCustomerEmailAndOrderId(customerEmail, orderId),
+                HttpStatus.OK
+        );
+    }
 }

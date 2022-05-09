@@ -1,6 +1,7 @@
 package dev.ritam.authorization.service;
 
 import dev.ritam.authorization.entity.Customer;
+import dev.ritam.authorization.exception.CustomerExistsException;
 import dev.ritam.authorization.exception.CustomerNotFoundException;
 import dev.ritam.authorization.model.CustomerRequest;
 import dev.ritam.authorization.model.CustomerResponse;
@@ -25,9 +26,17 @@ public class CustomerService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
+        String customerEmail = customerRequest.getEmail();
+
+        if (customerRepository.existsById(customerEmail)) {
+            String errMsg = String.format("Customer with email %s already exists", customerEmail);
+            log.error(errMsg);
+            throw new CustomerExistsException(errMsg);
+        }
+
         Customer customer = customerRepository.save(
                 Customer.builder()
-                        .email(customerRequest.getEmail())
+                        .email(customerEmail)
                         .password(passwordEncoder.encode(customerRequest.getPassword()))
                         .firstName(customerRequest.getFirstName())
                         .lastName(customerRequest.getLastName())

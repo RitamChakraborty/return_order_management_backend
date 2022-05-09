@@ -1,6 +1,7 @@
 package dev.ritam.authorization.controller;
 
 import dev.ritam.authorization.exception.BadRequestException;
+import dev.ritam.authorization.exception.CustomerExistsException;
 import dev.ritam.authorization.exception.InvalidJWTException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,12 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Error> handleEntityNotFoundException(EntityNotFoundException e) {
         return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(CustomerExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Error> handCustomerExistsException(CustomerExistsException e) {
+        return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

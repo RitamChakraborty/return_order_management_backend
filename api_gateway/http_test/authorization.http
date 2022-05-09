@@ -61,3 +61,15 @@ Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaHVrdGlrYS5tYWhhbnR5QGdtYWlsLmNvbSIsImV4cCI6Mjk3MTMyMDAyNTkxNDAwMH0.QhMU_aTk3ibBqs6uqNWqbPL07KIxuzztjwomuR33VytsOPxA0yoFpSCgd_73lst1DuQho6kJuT6FtippJpURFw
 
 
+### Sign up with already existing customer
+POST http://localhost:8181/signup
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "ritam@gmail.com",
+  "password": "Password@123",
+  "firstName": "Shuktika",
+  "lastName": "Mahanty",
+  "contactNumber": "7086653484"
+}
