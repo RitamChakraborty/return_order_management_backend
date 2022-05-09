@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,10 +61,12 @@ public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
         }
 
         if (username != null) {
+            final Instant now = Instant.now();
             Algorithm algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
             String token = JWT.create()
                     .withSubject(username)
-                    .withExpiresAt(new Date(System.currentTimeMillis() * 1000 * 60 * TOKEN_EXPIRATION_IN_MINUTE))
+                    .withIssuedAt(Date.from(now))
+                    .withExpiresAt(Date.from(now.plus(TOKEN_EXPIRATION_IN_MINUTE, ChronoUnit.MINUTES)))
                     .sign(algorithm);
             Map<String, String> tokenValue = new HashMap<>();
             tokenValue.put("access_token", token);
