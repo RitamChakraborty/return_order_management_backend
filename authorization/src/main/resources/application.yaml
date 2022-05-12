@@ -1,14 +1,16 @@
 server:
   port: 8080
   error:
-    include-message: always
-    include-binding-errors: always
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
 
 logging:
   level:
     org:
       hibernate:
-        SQL=debug:
+        SQL: debug
         type:
           descriptor:
             sql: trace
@@ -22,8 +24,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:return_order_management;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
-    username: ritam
-    password: password
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     embedded-database-connection: h2
   jpa:
     database: h2
@@ -36,7 +38,3 @@ spring:
       hibernate:
         format_sql: true
         enable_lazy_load_no_trans: true
-  h2:
-    console:
-      path: /h2-console
-      enabled: true

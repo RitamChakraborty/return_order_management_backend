@@ -3,6 +3,8 @@ package dev.ritam.authorization.controller;
 import dev.ritam.authorization.exception.BadRequestException;
 import dev.ritam.authorization.exception.CustomerExistsException;
 import dev.ritam.authorization.exception.InvalidJWTException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.persistence.EntityNotFoundException;
 
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class ExceptionController {
     @ExceptionHandler(InvalidJWTException.class)

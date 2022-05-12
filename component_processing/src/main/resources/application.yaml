@@ -8,7 +8,7 @@ logging:
   level:
     org:
       hibernate:
-        SQL=debug:
+        SQL: debug
         type:
           descriptor:
             sql: trace

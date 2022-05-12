@@ -2,7 +2,6 @@ package dev.ritam.authorization.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.ritam.authorization.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
@@ -73,14 +72,6 @@ public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             new ObjectMapper().writeValue(response.getOutputStream(), tokenValue);
         }
-    }
-
-    private String convertObjectToJson(Object object) throws JsonProcessingException {
-        if (object == null) {
-            return null;
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(object);
     }
 
     @Override
