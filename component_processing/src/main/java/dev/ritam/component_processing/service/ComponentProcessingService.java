@@ -21,7 +21,6 @@ public class ComponentProcessingService {
     private final PackagingAndDeliveryClient packagingAndDeliveryClient;
     private final ComponentFactory componentFactory;
     private final ComponentProcessingDefaultValues componentProcessingDefaultValues;
-    private final OrderDetailService orderDetailService;
 
     @Transactional
     public ProcessResponse processDetail(ProcessRequest processRequest, String customerEmail) {
@@ -47,10 +46,7 @@ public class ComponentProcessingService {
                     componentProcessor.setDuration(
                             componentProcessingDefaultValues.getProcessingDuration(componentType));
 
-                    ProcessResponse processResponse = componentProcessor.processComponent();
-                    orderDetailService.addOrderDetail(customerEmail, processRequest, processResponse);
-
-                    return processResponse;
+                    return componentProcessor.processComponent();
                 } else {
                     String errMsg = "Packaging and Delivery microservice returned null object";
                     log.error(errMsg);

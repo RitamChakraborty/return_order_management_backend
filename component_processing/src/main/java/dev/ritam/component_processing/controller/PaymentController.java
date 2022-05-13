@@ -1,5 +1,6 @@
 package dev.ritam.component_processing.controller;
 
+import dev.ritam.component_processing.model.PaymentResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class PaymentController {
             @RequestParam Integer creditLimit,
             @RequestParam Integer processingCharge
     ) {
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        PaymentResponse paymentResponse = new PaymentResponse("success");
+        return new ResponseEntity<>(paymentResponse, HttpStatus.OK);
     }
 }

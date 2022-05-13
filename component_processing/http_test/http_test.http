@@ -1,6 +1,6 @@
 ### Get process defail
 POST http://localhost:8081/component-processing/api/process-detail
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzE0NzA2MjAyMjEyMDB9.HhCV9ydOunzdkglOls5tHPnVHMLelSNT-qeKvpTXxGyA6R_u-eZosE0HgxtLtePMWmydli9caOI0Ur5pch9eCw
+x-auth-customer-email: ritam@gmail.com
 Content-Type: application/json
 Accept: application/json
 
@@ -27,8 +27,43 @@ Accept: application/json
 
 
 ### Payment processing
-GET http://localhost:8081/component-processing/api/complete-processing?requestId=abcd&creditCardNumber=1234&creditLimit=12345&processingCharge=1234
+GET http://localhost:8081/component-processing/api/complete-processing?requestId=c4219465-46e9-4ac6-9390-2bc3f4844478&creditCardNumber=1234123134123412&creditLimit=851&processingCharge=850
 
 
 ### Payment processing with missing request param
 GET http://localhost:8081/component-processing/api/complete-processing?requestId=abcd&creditCardNumber=1234&creditLimit=12345
+
+
+### Place order
+POST http://localhost:8081/component-processing/api/place-order
+x-auth-customer-email: ritam@gmail.com
+Content-Type: application/json
+Accept: application/json
+
+{
+  "processRequest": {
+    "name": "Miss Mahanty",
+    "contactNumber": "7980546384",
+    "componentType": "integral-item",
+    "componentName": "lipstick",
+    "quantity": 5
+  },
+  "processResponse": {
+    "requestId": "eda98175-ef1b-4403-89c2-8acf0810d40b",
+    "processingCharge": 500,
+    "packagingAndDeliveryCharge": 1750,
+    "dateOfDelivery": "2022-05-17"
+  }
+}
+
+
+### Get all orders
+GET http://localhost:8081/component-processing/api/order-details
+x-auth-customer-email: ritam@gmail.com
+Accept: application/json
+
+
+### Get single order
+GET http://localhost:8081/component-processing/api/order-details?orderId=1
+x-auth-customer-email: ritam@gmail.com
+Accept: application/json
