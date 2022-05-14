@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -24,9 +27,8 @@ public class ComponentProcessingController {
     public ResponseEntity<ProcessResponse> processDetail(
             @RequestBody
             @Valid
-                    ProcessRequest processRequest,
-            @RequestHeader(CUSTOMER_EMAIL_HEADER) String customerEmail
+                    ProcessRequest processRequest
     ) {
-        return ResponseEntity.ok(componentProcessingService.processDetail(processRequest, customerEmail));
+        return ResponseEntity.ok(componentProcessingService.processDetail(processRequest));
     }
 }

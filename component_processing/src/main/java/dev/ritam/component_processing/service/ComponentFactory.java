@@ -10,13 +10,17 @@ public class ComponentFactory {
             ComponentType componentType,
             PackagingAndDeliveryResponse packagingAndDeliveryResponse
     ) {
+        ComponentProcessor componentProcessor = null;
+
         switch (componentType) {
             case ACCESSORY:
-                return new Accessory(packagingAndDeliveryResponse);
+                componentProcessor = new Accessory(packagingAndDeliveryResponse);
+                break;
             case INTEGRAL_ITEM:
-                return new IntegralItem(packagingAndDeliveryResponse);
-            default:
-                return null;
+                componentProcessor = new IntegralItem(packagingAndDeliveryResponse);
+                break;
         }
+
+        return componentProcessor;
     }
 }

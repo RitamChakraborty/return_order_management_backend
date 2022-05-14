@@ -12,8 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -22,8 +20,7 @@ public class ComponentProcessingService {
     private final ComponentFactory componentFactory;
     private final ComponentProcessingDefaultValues componentProcessingDefaultValues;
 
-    @Transactional
-    public ProcessResponse processDetail(ProcessRequest processRequest, String customerEmail) {
+    public ProcessResponse processDetail(ProcessRequest processRequest) {
         String component = processRequest.getComponentType();
         int count = processRequest.getQuantity();
         try {
