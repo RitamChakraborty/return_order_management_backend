@@ -5,13 +5,12 @@ server:
     include-binding-errors: always
 
 logging:
+  file:
+    name: logs/component-processing.log
+    path: logs
   level:
-    org:
-      hibernate:
-        SQL: debug
-        type:
-          descriptor:
-            sql: trace
+    org.springframework.web: "debug"
+    org.hibernate: "error"
 
 spring:
   application:
