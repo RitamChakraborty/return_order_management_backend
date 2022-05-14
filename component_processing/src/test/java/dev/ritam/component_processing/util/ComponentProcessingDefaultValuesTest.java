@@ -12,16 +12,30 @@ class ComponentProcessingDefaultValuesTest {
     private ComponentProcessingDefaultValues componentProcessingDefaultValues;
 
     @Test
-    void getProcessingCharge() {
+    void getProcessingChargeForIntegralItem() {
         int expected = 500;
         int actual = componentProcessingDefaultValues.getProcessingCharge(ComponentType.INTEGRAL_ITEM);
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void getProcessingDuration() {
+    void getProcessingChargeForAccessory() {
+        int expected = 300;
+        int actual = componentProcessingDefaultValues.getProcessingCharge(ComponentType.ACCESSORY);
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getProcessingDurationForIntegralItem() {
         int expected = 5;
         int actual = componentProcessingDefaultValues.getProcessingDuration(ComponentType.INTEGRAL_ITEM);
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getProcessingDurationForAccessory() {
+        int expected = 2;
+        int actual = componentProcessingDefaultValues.getProcessingDuration(ComponentType.ACCESSORY);
         Assertions.assertEquals(expected, actual);
     }
 }

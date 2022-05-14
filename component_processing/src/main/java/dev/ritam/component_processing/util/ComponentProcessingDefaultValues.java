@@ -17,24 +17,32 @@ public class ComponentProcessingDefaultValues {
     private Map<String, Integer> accessory;
 
     public int getProcessingCharge(ComponentType componentType) {
+        int processingCharge = 0;
+
         switch (componentType) {
             case ACCESSORY:
-                return accessory.get(PROCESSING_CHARGE);
+                processingCharge = accessory.get(PROCESSING_CHARGE);
+                break;
             case INTEGRAL_ITEM:
-                return integralItem.get(PROCESSING_CHARGE);
-            default:
-                return 0;
+                processingCharge = integralItem.get(PROCESSING_CHARGE);
+                break;
         }
+
+        return processingCharge;
     }
 
     public int getProcessingDuration(ComponentType componentType) {
+        int duration = 0;
+
         switch (componentType) {
             case ACCESSORY:
-                return accessory.get(PROCESSING_DURATION);
+                duration = accessory.get(PROCESSING_DURATION);
+                break;
             case INTEGRAL_ITEM:
-                return integralItem.get(PROCESSING_DURATION);
-            default:
-                return 0;
+                duration = integralItem.get(PROCESSING_DURATION);
+                break;
         }
+
+        return duration;
     }
 }
