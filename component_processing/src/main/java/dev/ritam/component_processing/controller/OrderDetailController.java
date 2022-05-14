@@ -39,7 +39,7 @@ public class OrderDetailController {
     }
 
     @GetMapping("/order-detail/{:orderId}")
-    public ResponseEntity<OrderDetail> getOrderDetailsByCustomerEmail(
+    public ResponseEntity<OrderDetail> getOrderDetailByCustomerEmailAndOrderId(
             @RequestHeader(CUSTOMER_EMAIL_HEADER) String customerEmail,
             @PathVariable Long orderId
     ) {

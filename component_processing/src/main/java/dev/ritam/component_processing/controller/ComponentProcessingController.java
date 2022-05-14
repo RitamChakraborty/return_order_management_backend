@@ -21,7 +21,6 @@ import javax.validation.Valid;
 @Slf4j
 public class ComponentProcessingController {
     private final ComponentProcessingService componentProcessingService;
-    private static final String CUSTOMER_EMAIL_HEADER = "x-auth-customer-email";
 
     @PostMapping("/process-detail")
     public ResponseEntity<ProcessResponse> processDetail(

@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderDetailServiceTest {
+class OrderDetailServiceTest {
     @Mock
     private OrderDetailRepository orderDetailRepository;
     @InjectMocks

@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class ComponentProcessorServiceTest {
+class ComponentProcessorServiceTest {
     @Mock
     private PackagingAndDeliveryClient packagingAndDeliveryClient;
     @Autowired
