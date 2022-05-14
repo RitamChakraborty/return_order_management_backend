@@ -1,11 +1,14 @@
 package dev.ritam.component_processing.controller;
 
+import dev.ritam.component_processing.entity.OrderDetail;
 import dev.ritam.component_processing.model.OrderRequest;
 import dev.ritam.component_processing.service.OrderDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/component-processing/api")
@@ -15,7 +18,7 @@ public class OrderDetailController {
     private static final String CUSTOMER_EMAIL_HEADER = "x-auth-customer-email";
 
     @PostMapping("/place-order")
-    ResponseEntity<?> placeOrder(
+    public ResponseEntity<OrderDetail> placeOrder(
             @RequestBody OrderRequest orderRequest,
             @RequestHeader(CUSTOMER_EMAIL_HEADER) String customerEmail
     ) {
@@ -26,7 +29,7 @@ public class OrderDetailController {
     }
 
     @GetMapping("/order-details")
-    ResponseEntity<?> getOrderDetailsByCustomerEmail(
+    public ResponseEntity<List<OrderDetail>> getOrderDetailsByCustomerEmail(
             @RequestHeader(CUSTOMER_EMAIL_HEADER) String customerEmail
     ) {
         return new ResponseEntity<>(
@@ -36,7 +39,7 @@ public class OrderDetailController {
     }
 
     @GetMapping("/order-detail/{:orderId}")
-    ResponseEntity<?> getOrderDetailsByCustomerEmail(
+    public ResponseEntity<OrderDetail> getOrderDetailsByCustomerEmail(
             @RequestHeader(CUSTOMER_EMAIL_HEADER) String customerEmail,
             @PathVariable Long orderId
     ) {

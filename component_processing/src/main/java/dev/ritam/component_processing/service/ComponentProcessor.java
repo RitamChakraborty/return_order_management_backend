@@ -11,7 +11,7 @@ import java.util.UUID;
 public abstract class ComponentProcessor {
     private PackagingAndDeliveryResponse packagingAndDeliveryResponse;
     private int processingCharge;
-    private int Duration;
+    private int duration;
 
     protected ComponentProcessor(PackagingAndDeliveryResponse packagingAndDeliveryResponse) {
         this.packagingAndDeliveryResponse = packagingAndDeliveryResponse;

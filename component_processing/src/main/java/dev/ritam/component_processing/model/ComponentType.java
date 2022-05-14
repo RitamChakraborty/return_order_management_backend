@@ -4,13 +4,13 @@ public enum ComponentType {
     INTEGRAL_ITEM("integral-item"),
     ACCESSORY("accessory");
 
-    private final String componentType;
+    private final String component;
 
-    ComponentType(String componentType) {
-        this.componentType = componentType;
+    ComponentType(String component) {
+        this.component = component;
     }
 
-    public String getComponentType() {
-        return componentType;
+    public String getComponent() {
+        return component;
     }
 }

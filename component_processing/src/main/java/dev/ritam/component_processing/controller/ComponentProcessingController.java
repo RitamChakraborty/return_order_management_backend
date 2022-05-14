@@ -1,6 +1,7 @@
 package dev.ritam.component_processing.controller;
 
 import dev.ritam.component_processing.model.ProcessRequest;
+import dev.ritam.component_processing.model.ProcessResponse;
 import dev.ritam.component_processing.service.ComponentProcessingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class ComponentProcessingController {
     private static final String CUSTOMER_EMAIL_HEADER = "x-auth-customer-email";
 
     @PostMapping("/process-detail")
-    public ResponseEntity<?> processDetail(
+    public ResponseEntity<ProcessResponse> processDetail(
             @RequestBody
             @Valid
                     ProcessRequest processRequest,

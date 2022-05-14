@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/component-processing/api")
 public class PaymentController {
     @GetMapping("/complete-processing")
-    public ResponseEntity<?> completeProcessing(
+    public ResponseEntity<PaymentResponse> completeProcessing(
             @RequestParam String requestId,
             @RequestParam Long creditCardNumber,
             @RequestParam Integer creditLimit,
             @RequestParam Integer processingCharge
     ) {
-        PaymentResponse paymentResponse = new PaymentResponse("success");
-        return new ResponseEntity<>(paymentResponse, HttpStatus.OK);
+        return new ResponseEntity<>(new PaymentResponse("success"), HttpStatus.OK);
     }
 }

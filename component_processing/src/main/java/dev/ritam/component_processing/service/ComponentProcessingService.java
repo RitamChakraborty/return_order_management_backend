@@ -31,13 +31,13 @@ public class ComponentProcessingService {
                     .getPackagingAndDeliveryCharge(component, count);
 
             if (responseEntity.getStatusCode().is2xxSuccessful() && responseEntity.hasBody()) {
-                PackagingAndDeliveryResponse packagingAndDeliveryResponse = responseEntity.getBody();
+                var packagingAndDeliveryResponse = responseEntity.getBody();
 
                 if (packagingAndDeliveryResponse != null) {
                     ComponentType componentType = component.equals("accessory")
                             ? ComponentType.ACCESSORY
                             : ComponentType.INTEGRAL_ITEM;
-                    ComponentProcessor componentProcessor = componentFactory.make(
+                    var componentProcessor = componentFactory.make(
                             componentType, packagingAndDeliveryResponse
                     );
 
@@ -48,12 +48,12 @@ public class ComponentProcessingService {
 
                     return componentProcessor.processComponent();
                 } else {
-                    String errMsg = "Packaging and Delivery microservice returned null object";
+                    var errMsg = "Packaging and Delivery microservice returned null object";
                     log.error(errMsg);
                     throw new PackagingAndDeliveryServiceException(errMsg);
                 }
             } else {
-                String errMsg = String.format(
+                var errMsg = String.format(
                         "Packaging and Delivery microservice failed with status : %s",
                         responseEntity.getStatusCode()
                 );
@@ -61,7 +61,7 @@ public class ComponentProcessingService {
                 throw new PackagingAndDeliveryServiceException(errMsg);
             }
         } catch (Exception e) {
-            String errMsg = String.format(
+            var errMsg = String.format(
                     "Packaging and Delivery microservice failed with message : %s",
                     e.getMessage()
             );

@@ -16,17 +16,17 @@ class ComponentProcessorDefaultValuesTest {
     void getIntegralItem() {
         Map<String, Integer> integralItem = componentProcessingDefaultValues.getIntegralItem();
         Assertions.assertTrue(integralItem.containsKey("processing-duration"));
-        Assertions.assertEquals(integralItem.get("processing-duration"), 5);
+        Assertions.assertEquals(5, integralItem.get("processing-duration"));
         Assertions.assertTrue(integralItem.containsKey("processing-charge"));
-        Assertions.assertEquals(integralItem.get("processing-charge"), 500);
+        Assertions.assertEquals(500, integralItem.get("processing-charge"));
     }
 
     @Test
     void getAccessory() {
         Map<String, Integer> accessory = componentProcessingDefaultValues.getAccessory();
         Assertions.assertTrue(accessory.containsKey("processing-duration"));
-        Assertions.assertEquals(accessory.get("processing-duration"), 2);
+        Assertions.assertEquals(2, accessory.get("processing-duration"));
         Assertions.assertTrue(accessory.containsKey("processing-charge"));
-        Assertions.assertEquals(accessory.get("processing-charge"), 300);
+        Assertions.assertEquals(300, accessory.get("processing-charge"));
     }
 }

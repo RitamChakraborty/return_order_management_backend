@@ -17,7 +17,7 @@ public class OrderDetailService {
     private final OrderDetailRepository orderDetailRepository;
 
     public OrderDetail addOrderDetail(OrderRequest orderRequest, String customerEmail) {
-        OrderDetail orderDetail = OrderDetail.builder()
+        var orderDetail = OrderDetail.builder()
                 .customerEmail(customerEmail)
                 .processRequest(orderRequest.getProcessRequest())
                 .processResponse(orderRequest.getProcessResponse())
