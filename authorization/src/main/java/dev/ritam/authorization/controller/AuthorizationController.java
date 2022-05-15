@@ -1,6 +1,7 @@
 package dev.ritam.authorization.controller;
 
 import dev.ritam.authorization.model.CustomerRequest;
+import dev.ritam.authorization.model.CustomerResponse;
 import dev.ritam.authorization.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,12 @@ public class AuthorizationController {
     private final CustomerService customerService;
 
     @GetMapping("/authenticate")
-    public ResponseEntity<?> authenticate() {
+    public ResponseEntity<CustomerResponse> authenticate() {
         return ResponseEntity.ok(customerService.getCustomer());
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(
+    public ResponseEntity<CustomerResponse> signup(
             @RequestBody CustomerRequest customerRequest
     ) {
         return new ResponseEntity<>(customerService.addCustomer(customerRequest), HttpStatus.CREATED);
