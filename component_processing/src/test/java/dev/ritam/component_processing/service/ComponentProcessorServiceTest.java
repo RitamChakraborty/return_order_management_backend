@@ -112,7 +112,7 @@ class ComponentProcessorServiceTest {
                 .quantity(quantity)
                 .contactNumber(contactNumber)
                 .build();
-        String errorMessage = "Packaging and Delivery microservice failed with message : mock error";
+        String errorMessage = "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice failed with message : mock error";
 
         // When
         Mockito.when(packagingAndDeliveryClient.getPackagingAndDeliveryCharge(componentType, quantity))
@@ -147,7 +147,7 @@ class ComponentProcessorServiceTest {
                 .thenReturn(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST));
 
         // Then
-        String expectedErrorMessage = "Packaging and Delivery microservice returned null object";
+        String expectedErrorMessage = "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice returned null object";
 
         Assertions.assertThrows(
                 PackagingAndDeliveryServiceException.class,
@@ -177,7 +177,7 @@ class ComponentProcessorServiceTest {
                 .thenReturn(new ResponseEntity<>(null, HttpStatus.OK));
 
         // Then
-        String expectedErrorMessage = "Packaging and Delivery microservice returned null object";
+        String expectedErrorMessage = "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice returned null object";
 
         Assertions.assertThrows(
                 PackagingAndDeliveryServiceException.class,
@@ -198,7 +198,7 @@ class ComponentProcessorServiceTest {
         Assertions.assertThrows(
                 PackagingAndDeliveryServiceException.class,
                 () -> componentProcessingService.processDetail(processRequest),
-                "Packaging and Delivery microservice failed with status : 500"
+                "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice failed with status : 500"
         );
     }
 }

@@ -37,17 +37,17 @@ public class OrderDetailService {
             String customerEmail,
             Long orderId
     ) {
-        OrderDetail orderDetail = orderDetailRepository.findOrderDetailByCustomerEmailAndOrderId(
+        var orderDetail = orderDetailRepository.findOrderDetailByCustomerEmailAndOrderId(
                 customerEmail,
                 orderId
         ).orElseThrow(() -> {
-                    var errorMsg = String.format(
-                            "OrderDetailService getOrderDetailByCustomerEmailAndOrderId " +
-                                    "(String customerEmail, Long orderId) : " +
-                                    "Order detail with customer email %s and order id %s not found",
-                            customerEmail, orderId
-                    );
-                    log.error(errorMsg);
+            var errorMsg = String.format(
+                    "OrderDetailService getOrderDetailByCustomerEmailAndOrderId " +
+                            "(String customerEmail, Long orderId) : " +
+                            "Order detail with customer email %s and order id %s not found",
+                    customerEmail, orderId
+            );
+            log.error(errorMsg);
                     return new OrderDetailNotFoundException(errorMsg);
                 }
         );
@@ -58,6 +58,7 @@ public class OrderDetailService {
                         "order detail request with customer email %s and order id %s produced order detail %s",
                 customerEmail, orderId, orderDetail
         ));
+
         return orderDetail;
     }
 }

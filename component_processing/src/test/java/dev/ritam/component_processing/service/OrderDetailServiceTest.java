@@ -131,7 +131,9 @@ class OrderDetailServiceTest {
                 )
                 .build();
         String errorMsg = String.format(
-                "Order detail with customer email : %s and order id : %s not found",
+                "OrderDetailService getOrderDetailByCustomerEmailAndOrderId " +
+                        "(String customerEmail, Long orderId) : " +
+                        "Order detail with customer email %s and order id %s not found",
                 customerEmail, 1L
         );
 

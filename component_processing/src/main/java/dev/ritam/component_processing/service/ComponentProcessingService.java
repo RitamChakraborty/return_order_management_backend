@@ -30,7 +30,6 @@ public class ComponentProcessingService {
             if (responseEntity.getStatusCode().is2xxSuccessful() && responseEntity.hasBody()) {
                 var packagingAndDeliveryResponse = responseEntity.getBody();
 
-                if (packagingAndDeliveryResponse != null) {
                     ComponentType componentType = component.equals("accessory")
                             ? ComponentType.ACCESSORY
                             : ComponentType.INTEGRAL_ITEM;
@@ -42,17 +41,11 @@ public class ComponentProcessingService {
                             componentProcessingDefaultValues.getProcessingCharge(componentType));
                     componentProcessor.setDuration(
                             componentProcessingDefaultValues.getProcessingDuration(componentType));
-
-                    ProcessResponse processResponse = componentProcessor.processComponent();
+                    var processResponse = componentProcessor.processComponent();
                     log.info(String.format("ComponentProcessingService processDetail(ProcessRequest processRequest) : " +
                             "process request %s produced response %s", processRequest, processResponse.toString()));
 
                     return processResponse;
-                } else {
-                    var errMsg = "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice returned null object";
-                    log.error(errMsg);
-                    throw new PackagingAndDeliveryServiceException(errMsg);
-                }
             } else {
                 var errMsg = String.format(
                         "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice failed with status : %s",

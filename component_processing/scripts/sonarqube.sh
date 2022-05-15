@@ -1,3 +1,5 @@
+mvn clean jacoco:prepare-agent install
+mvn jacoco:report
 mvn sonar:sonar \
   -Dsonar.projectKey=component_processing \
   -Dsonar.host.url=http://localhost:9000 \
