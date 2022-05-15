@@ -29,15 +29,16 @@ public class PackagingAndDeliveryService {
                     packagingItems.get(PROTECTIVE_SHEATH)) * count;
             int deliveryCharge = deliveryItems.get(componentType) * count;
 
-            log.info(String.format("For component Type : %s and count : %s, packaging charge : %s and delivery charge : %s",
-                    componentType, count, packagingCharge, deliveryCharge));
+            log.info("PackagingAndDeliveryService getPackagingAndDeliveryCharge (String componentType, int count) : " +
+                            "For component Type {} and count {}, packaging charge {} and delivery charge {}",
+                    componentType, count, packagingCharge, deliveryCharge);
 
             return PackagingAndDeliveryResponse.builder()
                     .packagingCharge(packagingCharge)
                     .deliveryCharge(deliveryCharge)
                     .build();
         } else {
-            String errMsg = String.format("Component Type %s not found", componentType);
+            var errMsg = String.format("PackagingAndDeliveryService getPackagingAndDeliveryCharge (String componentType, int count) : Component Type %s not found", componentType);
             log.error(errMsg);
             throw new ComponentTypeNotFoundException(errMsg);
         }

@@ -3,7 +3,6 @@ version: "3"
 services:
   sonarqube:
     image: sonarqube:lts
-    command: sysctl -w vm.max_map_count=524288 && sysctl -w fs.file-max=131072 && ulimit -u 8192 && ulimit -n 131072 && echo 'vm.max_map_count=524288' >> /etc/sysctl.conf
     depends_on:
       - db
     environment:

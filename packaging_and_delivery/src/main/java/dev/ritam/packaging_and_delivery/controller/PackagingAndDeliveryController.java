@@ -1,5 +1,6 @@
 package dev.ritam.packaging_and_delivery.controller;
 
+import dev.ritam.packaging_and_delivery.model.PackagingAndDeliveryResponse;
 import dev.ritam.packaging_and_delivery.service.PackagingAndDeliveryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class PackagingAndDeliveryController {
 
     @GetMapping("/packaging-and-delivery-charge")
     public @ResponseBody
-    ResponseEntity<?> getPackagingAndDeliveryCharge(
+    ResponseEntity<PackagingAndDeliveryResponse> getPackagingAndDeliveryCharge(
             @RequestParam
             @NotBlank(message = "Component Type can not be empty")
                     String componentType,

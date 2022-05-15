@@ -13,23 +13,60 @@ class PackagingAndDeliveryServiceTest {
     private PackagingAndDeliveryService packagingAndDeliveryService;
 
     @Test
-    void getPackagingAndDeliveryCharge() {
+    void getPackagingAndDeliveryChargeForIntegralItem() {
+        // Given
         String componentType = "integral-item";
         int count = 2;
+
+        // When
         PackagingAndDeliveryResponse packagingAndDeliveryResponse = packagingAndDeliveryService
                 .getPackagingAndDeliveryCharge(componentType, count);
-        Assertions.assertEquals(packagingAndDeliveryResponse.getPackagingCharge(), 300);
-        Assertions.assertEquals(packagingAndDeliveryResponse.getDeliveryCharge(), 400);
+
+        // Then
+        Assertions.assertEquals(300, packagingAndDeliveryResponse.getPackagingCharge());
+        Assertions.assertEquals(400, packagingAndDeliveryResponse.getDeliveryCharge());
+    }
+
+    @Test
+    void getPackagingAndDeliveryChargeForAccessory() {
+        // Given
+        String componentType = "accessory";
+        int count = 2;
+
+        // When
+        PackagingAndDeliveryResponse packagingAndDeliveryResponse = packagingAndDeliveryService
+                .getPackagingAndDeliveryCharge(componentType, count);
+
+        // Then
+        Assertions.assertEquals(200, packagingAndDeliveryResponse.getPackagingCharge());
+        Assertions.assertEquals(200, packagingAndDeliveryResponse.getDeliveryCharge());
     }
 
     @Test
     void getPackagingAndDeliveryChargeUnknownComponentTest() {
+        // Given
         String componentType = "unknown";
         int count = 2;
+
+        // When and Then
         Assertions.assertThrows(
                 ComponentTypeNotFoundException.class,
                 () -> packagingAndDeliveryService.getPackagingAndDeliveryCharge(componentType, count),
-                "Component Type unknown not found"
+                "PackagingAndDeliveryService getPackagingAndDeliveryCharge (String componentType, int count) : Component Type unknown not found"
+        );
+    }
+
+    @Test
+    void getPackagingAndDeliveryChargeUnknownComponentTest2() {
+        // Given
+        String componentType = "protective-sheath";
+        int count = 2;
+
+        // When and Then
+        Assertions.assertThrows(
+                ComponentTypeNotFoundException.class,
+                () -> packagingAndDeliveryService.getPackagingAndDeliveryCharge(componentType, count),
+                "PackagingAndDeliveryService getPackagingAndDeliveryCharge (String componentType, int count) : Component Type unknown not found"
         );
     }
 }

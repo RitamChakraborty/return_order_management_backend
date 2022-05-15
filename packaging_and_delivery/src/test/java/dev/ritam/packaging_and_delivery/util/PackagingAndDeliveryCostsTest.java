@@ -13,18 +13,72 @@ class PackagingAndDeliveryCostsTest {
     private PackagingAndDeliveryCosts packagingAndDeliveryCosts;
 
     @Test
-    void getPackagingItems() {
+    void getPackagingItemsForIntegralItems() {
+        // Given
+        String integralItem = "integral-item";
+
+        // When
         Map<String, Integer> packagingItems = packagingAndDeliveryCosts.getPackagingItems();
+
+        // Then
         Assertions.assertNotNull(packagingItems);
-        Assertions.assertTrue(packagingItems.containsKey("integral-item"));
-        Assertions.assertEquals(packagingItems.get("integral-item"), 100);
+        Assertions.assertTrue(packagingItems.containsKey(integralItem));
+        Assertions.assertEquals(100, packagingItems.get(integralItem));
     }
 
     @Test
-    void getDeliveryItems() {
+    void getPackagingItemsForAccessory() {
+        // Given
+        String accessory = "accessory";
+
+        // When
+        Map<String, Integer> packagingItems = packagingAndDeliveryCosts.getPackagingItems();
+
+        // Then
+        Assertions.assertNotNull(packagingItems);
+        Assertions.assertTrue(packagingItems.containsKey(accessory));
+        Assertions.assertEquals(50, packagingItems.get(accessory));
+    }
+
+    @Test
+    void getPackagingItemsForProtectiveSheath() {
+        // Given
+        String protectiveSheath = "protective-sheath";
+
+        // When
+        Map<String, Integer> packagingItems = packagingAndDeliveryCosts.getPackagingItems();
+
+        // Then
+        Assertions.assertNotNull(packagingItems);
+        Assertions.assertTrue(packagingItems.containsKey(protectiveSheath));
+        Assertions.assertEquals(50, packagingItems.get(protectiveSheath));
+    }
+
+    @Test
+    void getDeliveryItemsForIntegralItems() {
+        // Given
+        String integralItem = "integral-item";
+
+        // When
         Map<String, Integer> deliveryItems = packagingAndDeliveryCosts.getDeliveryItems();
+
+        // Then
         Assertions.assertNotNull(deliveryItems);
-        Assertions.assertTrue(deliveryItems.containsKey("integral-item"));
-        Assertions.assertEquals(deliveryItems.get("integral-item"), 200);
+        Assertions.assertTrue(deliveryItems.containsKey(integralItem));
+        Assertions.assertEquals(200, deliveryItems.get(integralItem));
+    }
+
+    @Test
+    void getDeliveryItemsForAccessory() {
+        // Given
+        String accessory = "accessory";
+
+        // When
+        Map<String, Integer> deliveryItems = packagingAndDeliveryCosts.getDeliveryItems();
+
+        // Then
+        Assertions.assertNotNull(deliveryItems);
+        Assertions.assertTrue(deliveryItems.containsKey(accessory));
+        Assertions.assertEquals(100, deliveryItems.get(accessory));
     }
 }
