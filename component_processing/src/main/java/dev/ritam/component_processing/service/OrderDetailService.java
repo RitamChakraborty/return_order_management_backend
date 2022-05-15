@@ -23,7 +23,9 @@ public class OrderDetailService {
                 .processResponse(orderRequest.getProcessResponse())
                 .build();
         orderDetailRepository.saveAndFlush(orderDetail);
-        log.info(String.format("Order Detail added : %s", orderDetail));
+        log.info(String.format("OrderDetailService addOrderDetail(OrderRequest orderRequest, String customerEmail) : " +
+                        "For order request %s with customer email %s order Detail added  %s",
+                orderRequest, customerEmail, orderDetail));
         return orderDetail;
     }
 
@@ -35,14 +37,27 @@ public class OrderDetailService {
             String customerEmail,
             Long orderId
     ) {
-        return orderDetailRepository.findOrderDetailByCustomerEmailAndOrderId(
+        OrderDetail orderDetail = orderDetailRepository.findOrderDetailByCustomerEmailAndOrderId(
                 customerEmail,
                 orderId
-        ).orElseThrow(() -> new OrderDetailNotFoundException(
-                String.format(
-                        "Order detail with customer email : %s and order id : %s not found",
-                        customerEmail, orderId
-                ))
+        ).orElseThrow(() -> {
+                    var errorMsg = String.format(
+                            "OrderDetailService getOrderDetailByCustomerEmailAndOrderId " +
+                                    "(String customerEmail, Long orderId) : " +
+                                    "Order detail with customer email %s and order id %s not found",
+                            customerEmail, orderId
+                    );
+                    log.error(errorMsg);
+                    return new OrderDetailNotFoundException(errorMsg);
+                }
         );
+
+        log.info(String.format(
+                "OrderDetailService getOrderDetailByCustomerEmailAndOrderId " +
+                        "(String customerEmail, Long orderId) : " +
+                        "order detail request with customer email %s and order id %s produced order detail %s",
+                customerEmail, orderId, orderDetail
+        ));
+        return orderDetail;
     }
 }

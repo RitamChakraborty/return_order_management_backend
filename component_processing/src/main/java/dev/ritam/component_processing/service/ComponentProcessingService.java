@@ -43,15 +43,19 @@ public class ComponentProcessingService {
                     componentProcessor.setDuration(
                             componentProcessingDefaultValues.getProcessingDuration(componentType));
 
-                    return componentProcessor.processComponent();
+                    ProcessResponse processResponse = componentProcessor.processComponent();
+                    log.info(String.format("ComponentProcessingService processDetail(ProcessRequest processRequest) : " +
+                            "process request %s produced response %s", processRequest, processResponse.toString()));
+
+                    return processResponse;
                 } else {
-                    var errMsg = "Packaging and Delivery microservice returned null object";
+                    var errMsg = "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice returned null object";
                     log.error(errMsg);
                     throw new PackagingAndDeliveryServiceException(errMsg);
                 }
             } else {
                 var errMsg = String.format(
-                        "Packaging and Delivery microservice failed with status : %s",
+                        "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice failed with status : %s",
                         responseEntity.getStatusCode()
                 );
                 log.error(errMsg);
@@ -59,7 +63,7 @@ public class ComponentProcessingService {
             }
         } catch (Exception e) {
             var errMsg = String.format(
-                    "Packaging and Delivery microservice failed with message : %s",
+                    "ComponentProcessingService processDetail(ProcessRequest processRequest) : Packaging and Delivery microservice failed with message : %s",
                     e.getMessage()
             );
             log.error(errMsg);
