@@ -1,12 +1,16 @@
 server:
   port: 8082
-  error:
-    include-message: always
-    include-binding-errors: always
 
 spring:
   application:
     name: packaging-and-delivery
+
+logging:
+  file:
+    name: logs/packaging-and-delivery.log
+    path: logs
+  level:
+    org.springframework.web: "debug"
 
 packaging-and-delivery-cost:
   packaging-items:
