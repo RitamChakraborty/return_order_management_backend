@@ -4,8 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import dev.ritam.authorization.exception.InvalidJWTException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 public class AuthenticationFilter extends OncePerRequestFilter {
     private static final String SECRET_KEY = System.getenv("SECRET_KEY");
 
@@ -39,20 +40,31 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
             if (token != null && token.startsWith("Bearer ")) {
                 try {
-                    token = token.replaceAll("Bearer ", "");
+                    token = token.replace("Bearer ", "");
 
-                    Algorithm algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+                    var algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
                     JWTVerifier verifier = JWT.require(algorithm).build();
-                    DecodedJWT decodedJWT = verifier.verify(token);
+                    var decodedJWT = verifier.verify(token);
                     String username = decodedJWT.getSubject();
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                    var usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(username, null, null);
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 } catch (JWTVerificationException e) {
-                    throw new InvalidJWTException(e.getMessage());
+                    var errorMsg = String.format(
+                            "AuthenticationFilter.doFilterInternal " +
+                                    "(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) : " +
+                                    "%s",
+                            e.getMessage()
+                    );
+                    log.error(errorMsg);
+                    throw new InvalidJWTException(errorMsg);
                 }
             } else {
-                throw new InvalidJWTException("Bad token");
+                var errorMsg = "AuthenticationFilter.doFilterInternal " +
+                        "(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) : " +
+                        "Bad token";
+                log.error(errorMsg);
+                throw new InvalidJWTException(errorMsg);
             }
         }
 

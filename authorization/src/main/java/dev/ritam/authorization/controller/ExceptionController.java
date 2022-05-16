@@ -36,13 +36,13 @@ public class ExceptionController {
 
     @ExceptionHandler(CustomerExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Error> handCustomerExistsException(CustomerExistsException e) {
+    public ResponseEntity<Error> handleCustomerExistsException(CustomerExistsException e) {
         return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<Error> handException(Exception e) {
+    public ResponseEntity<Error> handleException(Exception e) {
         return new ResponseEntity<>(new Error(e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 }

@@ -29,12 +29,12 @@ public class CustomerService implements UserDetailsService {
         String customerEmail = customerRequest.getEmail();
 
         if (customerRepository.existsById(customerEmail)) {
-            String errMsg = String.format("Customer with email %s already exists", customerEmail);
+            var errMsg = String.format("CustomerService.addCustomer (CustomerRequest customerRequest) : Customer with email %s already exists", customerEmail);
             log.error(errMsg);
             throw new CustomerExistsException(errMsg);
         }
 
-        Customer customer = customerRepository.save(
+        var customer = customerRepository.save(
                 Customer.builder()
                         .email(customerEmail)
                         .password(passwordEncoder.encode(customerRequest.getPassword()))
@@ -44,7 +44,7 @@ public class CustomerService implements UserDetailsService {
                         .build()
         );
 
-        log.info(String.format("Add Customer : %s", customer));
+        log.info("CustomerService.addCustomer (CustomerRequest customerRequest) : Customer : {}", customer);
 
         return CustomerResponse.builder()
                 .email(customer.getEmail())
@@ -64,8 +64,13 @@ public class CustomerService implements UserDetailsService {
             username = principal.toString();
         }
 
-        Customer customer = customerRepository.findById(username)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+        var customer = customerRepository.findById(username)
+                .orElseThrow(() -> {
+                    var errorMsg = String.format("CustomerService.getCustomer () : " +
+                            "Customer not found with username %s", username);
+                    log.error(errorMsg);
+                    return new CustomerNotFoundException(errorMsg);
+                });
 
         return CustomerResponse.builder()
                 .email(customer.getEmail())

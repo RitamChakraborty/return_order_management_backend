@@ -28,7 +28,9 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            log.error(String.format("Authorization filter error : %s", e.getMessage()));
+            log.error("ExceptionHandlerFilter.doFilterInternal " +
+                            "(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) : {}",
+                    e.getMessage());
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
     }

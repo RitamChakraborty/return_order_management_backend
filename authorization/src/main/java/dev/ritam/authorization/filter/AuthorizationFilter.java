@@ -40,10 +40,13 @@ public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
         String password = request.getParameter("password");
 
         if (username == null || password == null) {
-            throw new BadRequestException("Bad request");
+            var errMsg = "AuthorizationFilter.attemptAuthentication(HttpServletRequest request, HttpServletResponse response) : " +
+                    "Bad request";
+            log.error(errMsg);
+            throw new BadRequestException(errMsg);
         }
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+        var usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(username, password);
         return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
     }
@@ -60,8 +63,8 @@ public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
         }
 
         if (username != null) {
-            final Instant now = Instant.now();
-            Algorithm algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+            final var now = Instant.now();
+            var algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
             String token = JWT.create()
                     .withSubject(username)
                     .withIssuedAt(Date.from(now))
