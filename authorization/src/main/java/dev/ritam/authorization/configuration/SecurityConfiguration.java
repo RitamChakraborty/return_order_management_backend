@@ -34,7 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             // Permitted urls
-            "/signup"
+            "/signup",
+            "/authorization/docs"
     };
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;

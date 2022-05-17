@@ -36,7 +36,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             "/favicon.ico",
             // Permitted urls
             "/login",
-            "/signup"
+            "/signup",
+            "/authorization/docs"
     };
 
     @Override
