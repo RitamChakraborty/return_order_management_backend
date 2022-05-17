@@ -21,6 +21,21 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    private static final String[] AUTH_WHITELIST = {
+            // Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // Swagger UI v3
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            // Permitted urls
+            "/signup"
+    };
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;
     private final ExceptionHandlerFilter exceptionHandlerFilter;
@@ -40,10 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(
-                        "/h2-console/**",
-                        "/signup"
-                )
+                .antMatchers(AUTH_WHITELIST)
                 .permitAll()
                 .anyRequest()
                 .authenticated()

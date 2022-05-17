@@ -18,6 +18,9 @@ logging:
 spring:
   application:
     name: authorization
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   sql:
     init:
       platform: h2

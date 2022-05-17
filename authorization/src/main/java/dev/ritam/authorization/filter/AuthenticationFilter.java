@@ -22,6 +22,22 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class AuthenticationFilter extends OncePerRequestFilter {
     private static final String SECRET_KEY = System.getenv("SECRET_KEY");
+    private static final String[] AUTH_WHITELIST = {
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars",
+            // Swagger UI v3
+            "/v3/api-docs",
+            "/swagger-ui",
+            "/favicon.ico",
+            // Permitted urls
+            "/login",
+            "/signup"
+    };
 
     @Override
     protected void doFilterInternal(
@@ -32,10 +48,17 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             @NonNull
                     FilterChain filterChain
     ) throws ServletException, IOException {
-        if (
-                !request.getServletPath().equals("/login") &&
-                        !request.getServletPath().equals("/signup")
-        ) {
+        String requestUrl = request.getServletPath();
+        boolean whiteListedRequest = false;
+
+        for (String url : AUTH_WHITELIST) {
+            if (requestUrl.startsWith(url)) {
+                whiteListedRequest = true;
+                break;
+            }
+        }
+
+        if (!whiteListedRequest) {
             String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
             if (token != null && token.startsWith("Bearer ")) {
