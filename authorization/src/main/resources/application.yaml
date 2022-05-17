@@ -7,13 +7,13 @@ server:
     include-exception: false
 
 logging:
+  file:
+    name: logs/authorization.log
+    path: logs
   level:
-    org:
-      hibernate:
-        SQL: debug
-        type:
-          descriptor:
-            sql: trace
+    org.springframework.web: "debug"
+    org.hibernate: "error"
+
 
 spring:
   application:
