@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: packaging-and-delivery
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 logging:
   file:
