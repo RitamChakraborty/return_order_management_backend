@@ -1,17 +1,31 @@
-### Login test with correct credential
+### Login with correct username and password
 POST http://localhost:8181/login
 Content-Type: application/x-www-form-urlencoded
 
 username=ritam@gmail.com&password=password
 
 
-### Login test with wrong usernme
+### Login with wrong username
 POST http://localhost:8181/login
 Content-Type: application/x-www-form-urlencoded
 
 username=pritam@gmail.com&password=password
 
-### Login test with wrong password
+
+### Login test with incorrect request
+POST http://localhost:8181/login
+Content-Type: application/x-www-form-urlencoded
+
+email=ritam@gmail.com&password=password
+
+### Login test with incorrect username
+POST http://localhost:8181/login
+Content-Type: application/x-www-form-urlencoded
+
+username=pritam@gmail.com&password=password
+
+
+### Login test with wrong credential
 POST http://localhost:8181/login
 Content-Type: application/x-www-form-urlencoded
 
@@ -26,7 +40,7 @@ Accept: application/json
 ### Get Customer with valid token
 GET http://localhost:8181/authenticate
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzE0NjAyMTI2MzM4MDB9.2C2b8oiuLIw6Rnz2T1DwQJ-srSIByOL5730sjvEznXs8N0d2tOTrJ2kVmPhxRsEzHv4z_55IZe8hvdTyHFB4MA
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzEyODQzNjM5NjMwMDB9.p7m5gaEljNkTWs7YB6Ys4BUcFtEW3qFGIl3eHkVGIQXLSgD96VXoLLKNsMrFWO5nobgpbYWs0iDrwKtDWqn3Cw
 
 
 ### Get Customer with invalid token
@@ -61,15 +75,7 @@ Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaHVrdGlrYS5tYWhhbnR5QGdtYWlsLmNvbSIsImV4cCI6Mjk3MTMyMDAyNTkxNDAwMH0.QhMU_aTk3ibBqs6uqNWqbPL07KIxuzztjwomuR33VytsOPxA0yoFpSCgd_73lst1DuQho6kJuT6FtippJpURFw
 
 
-### Sign up with already existing customer
-POST http://localhost:8181/signup
+### Login with expired token
+GET http://localhost:8181/authenticate
 Accept: application/json
-Content-Type: application/json
-
-{
-  "email": "ritam@gmail.com",
-  "password": "Password@123",
-  "firstName": "Shuktika",
-  "lastName": "Mahanty",
-  "contactNumber": "7086653484"
-}
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTIxMTM4OTAsImlhdCI6MTY1MjExMjA5MH0.8eT7jh3sR2sM3rYDMVIsCaH_gdVZ6BCSPCYZ71SOhm1vvxokw9oQDqnSyhry9izs4UQhUlBO8SwtVbRmbz0X3A
