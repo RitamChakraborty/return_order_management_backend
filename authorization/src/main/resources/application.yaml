@@ -14,7 +14,6 @@ logging:
     org.springframework.web: "debug"
     org.hibernate: "error"
 
-
 spring:
   application:
     name: authorization
