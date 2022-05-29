@@ -24,6 +24,10 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -65,19 +69,9 @@
             <version>0.8.8</version>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-bean-validators</artifactId>
-            <version>3.0.0</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.8</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -103,6 +97,7 @@
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <forkCount>3</forkCount>
                     <reuseForks>true</reuseForks>
+                    <!--suppress UnresolvedMavenProperty -->
                     <argLine>${surefireArgLine} -Xmx1024m -noverify</argLine>
                 </configuration>
             </plugin>
