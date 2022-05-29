@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/RitamChakraborty/config-server
+          uri: https://gitlab.com/ritam6/config-server
           clone-on-start: true
 
 eureka:
