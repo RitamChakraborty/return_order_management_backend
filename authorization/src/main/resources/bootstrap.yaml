@@ -2,4 +2,4 @@ spring:
   cloud:
     config:
       enabled: true
-      uri: http://config-server:8286
+      uri: ${CONFIG_SERVER_URL}

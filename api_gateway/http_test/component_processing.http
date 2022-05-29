@@ -1,6 +1,6 @@
 ### Get process defail
 POST http://localhost:8181/component-processing/api/process-detail
-x-auth-customer-email: ritam@gmail.com
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTM4NDI1ODEsImlhdCI6MTY1Mzg0MDc4MX0.oat-ocS3eHlGRwcwe6xNr9FFqgb27jEP14HhoMMOfi_4znhikHe_srVm1a4wRMbslLij9bN9fa2EmtlBZuf69Q
 Content-Type: application/json
 Accept: application/json
 

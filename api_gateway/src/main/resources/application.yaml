@@ -21,6 +21,10 @@ spring:
               - GET
               - POST
 
+eureka:
+  instance:
+    prefer-ip-address: true
+
 management:
   endpoints:
     web:

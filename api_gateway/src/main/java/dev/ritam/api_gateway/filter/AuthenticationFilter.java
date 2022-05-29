@@ -19,7 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AuthenticationFilter implements GatewayFilter {
     private static final String CUSTOMER_EMAIL_HEADER = "x-auth-customer-email";
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -30,17 +30,18 @@ public class AuthenticationFilter implements GatewayFilter {
         String authorizationHeader =
                 Objects.requireNonNull(exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION)).get(0);
 
-        return webClient
+        return webClientBuilder
+                .build()
                 .get()
-                .uri("http://localhost:8080/authenticate")
+                .uri("lb://authorization/authenticate")
                 .header(HttpHeaders.AUTHORIZATION, authorizationHeader)
                 .retrieve()
                 .onStatus(HttpStatus::isError, response -> Mono.error(new BadTokenException("Bad token")))
                 .bodyToMono(CustomerResponse.class)
                 .map(customerResponse -> {
-                            exchange
-                                    .getRequest()
-                                    .mutate()
+                    exchange
+                            .getRequest()
+                            .mutate()
                                     .header(CUSTOMER_EMAIL_HEADER, customerResponse.getEmail());
                             return exchange;
                         }
