@@ -9,6 +9,13 @@ spring:
       auto-registration:
         enabled: false
 
+logging:
+  file:
+    name: logs/service-registry.log
+    path: logs
+  level:
+    org.springframework.web: "debug"
+
 eureka:
   client:
     fetch-registry: false

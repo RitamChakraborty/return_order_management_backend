@@ -21,6 +21,13 @@ spring:
               - GET
               - POST
 
+logging:
+  file:
+    name: logs/api-gateway.log
+    path: logs
+  level:
+    org.springframework.web: "debug"
+
 eureka:
   instance:
     prefer-ip-address: true

@@ -11,6 +11,13 @@ spring:
           uri: https://gitlab.com/ritam6/config-server
           clone-on-start: true
 
+logging:
+  file:
+    name: logs/config-server.log
+    path: logs
+  level:
+    org.springframework.web: "debug"
+
 eureka:
   client:
     register-with-eureka: true
