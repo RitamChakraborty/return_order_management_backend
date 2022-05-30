@@ -33,7 +33,7 @@ public class AuthenticationFilter implements GatewayFilter {
         return webClientBuilder
                 .build()
                 .get()
-                .uri("lb://authorization/authenticate")
+                .uri("lb://authorization/authorization/api/authenticate")
                 .header(HttpHeaders.AUTHORIZATION, authorizationHeader)
                 .retrieve()
                 .onStatus(HttpStatus::isError, response -> Mono.error(new BadTokenException("Bad token")))

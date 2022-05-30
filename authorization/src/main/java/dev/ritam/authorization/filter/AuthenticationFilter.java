@@ -33,9 +33,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             "/v3/api-docs",
             "/swagger-ui",
             "/favicon.ico",
-            "/login",
-            "/signup",
-            "/authorization/docs",
+            "/authorization/api/login",
+            "/authorization/api/signup",
+            "/authorization/api/docs",
             "/actuator"
     };
 
@@ -83,9 +83,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                     throw new InvalidJWTException(errorMsg);
                 }
             } else {
-                var errorMsg = "AuthenticationFilter.doFilterInternal " +
+                var errorMsg = String.format("AuthenticationFilter.doFilterInternal " +
                         "(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) : " +
-                        "Bad token";
+                        "Bad token on url %s", requestUrl);
                 log.error(errorMsg);
                 throw new InvalidJWTException(errorMsg);
             }

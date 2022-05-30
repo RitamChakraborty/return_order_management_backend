@@ -35,7 +35,7 @@ public class RouteConfiguration {
                         .uri("lb://component-processing/")
                 )
                 .route(predicateSpec -> predicateSpec
-                        .path("/**")
+                        .path("/authorization/api/**")
                         .filters(gatewayFilterSpec -> gatewayFilterSpec
                                 .circuitBreaker(config -> config
                                         .setFallbackUri("forward:/authorization-fallback")

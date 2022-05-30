@@ -1,56 +1,56 @@
 ### Login with correct username and password
-POST http://localhost:8181/login
+POST http://localhost:8181/authorization/api/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=ritam@gmail.com&password=password
 
 
 ### Login with wrong username
-POST http://localhost:8181/login
+POST http://localhost:8181/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=pritam@gmail.com&password=password
 
 
 ### Login test with incorrect request
-POST http://localhost:8181/login
+POST http://localhost:8181/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 email=ritam@gmail.com&password=password
 
 ### Login test with incorrect username
-POST http://localhost:8181/login
+POST http://localhost:8181/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=pritam@gmail.com&password=password
 
 
 ### Login test with wrong credential
-POST http://localhost:8181/login
+POST http://localhost:8181/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=ritam@gmail.com&password=blah
 
 
 ### Get Customer with empty token
-GET http://localhost:8181/authenticate
+GET http://localhost:8181/authorization/api/authenticate
 Accept: application/json
 
 
 ### Get Customer with valid token
-GET http://localhost:8181/authenticate
+GET http://localhost:8181/authorization/api/authenticate
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzEyODQzNjM5NjMwMDB9.p7m5gaEljNkTWs7YB6Ys4BUcFtEW3qFGIl3eHkVGIQXLSgD96VXoLLKNsMrFWO5nobgpbYWs0iDrwKtDWqn3Cw
 
 
 ### Get Customer with invalid token
-GET http://localhost:8181/authenticate
+GET http://localhost:8181/authorization/api/authenticate
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzEyODQzNjM5NjMwMDB9.p7m5gaEljNkTWs7YB6Ys4BUcFtEW3qFGIl3eHkVGIQXLSgD96WXoLLKNsMrFWO5nobgpbYWs0iDrwKtDWqn3Cz
 
 
 ### Create new customer
-POST http://localhost:8181/signup
+POST http://localhost:8181/authorization/api/signup
 Accept: application/json
 Content-Type: application/json
 
@@ -63,19 +63,19 @@ Content-Type: application/json
 }
 
 ### Login with new user
-POST http://localhost:8181/login
+POST http://localhost:8181/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=shuktika.mahanty@gmail.com&password=Password@123
 
 
 ### Get Customer with valid token of new user
-GET http://localhost:8181/authenticate
+GET http://localhost:8181/authorization/api/authenticate
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaHVrdGlrYS5tYWhhbnR5QGdtYWlsLmNvbSIsImV4cCI6Mjk3MTMyMDAyNTkxNDAwMH0.QhMU_aTk3ibBqs6uqNWqbPL07KIxuzztjwomuR33VytsOPxA0yoFpSCgd_73lst1DuQho6kJuT6FtippJpURFw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaHVrdGlrYS5tYWhhbnR5QGdtYWlsLmNvbSIsImV4cCI6MTY1MzkyOTgxMiwiaWF0IjoxNjUzOTI4MDEyfQ.mAdBWqbrAgSmL7-lOYKeSHANquEW371hfQorhKdC7vjZZu6ZygOrgSAbutFnFJi_75AlMlU5ZPo_9x0KLGy9YA
 
 
 ### Login with expired token
-GET http://localhost:8181/authenticate
+GET http://localhost:8181/authorization/api/authenticate
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTIxMTM4OTAsImlhdCI6MTY1MjExMjA5MH0.8eT7jh3sR2sM3rYDMVIsCaH_gdVZ6BCSPCYZ71SOhm1vvxokw9oQDqnSyhry9izs4UQhUlBO8SwtVbRmbz0X3A

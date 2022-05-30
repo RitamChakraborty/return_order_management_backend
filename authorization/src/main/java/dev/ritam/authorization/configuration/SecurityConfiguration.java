@@ -36,9 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // Actuator
             "/actuator/**",
             // Permitted urls
-            "/signup",
-            "/authorization/docs"
+            "/authorization/api/signup",
+            "/authorization/api/docs"
     };
+    private static final String LOGIN_URL = "/authorization/api/login";
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;
     private final ExceptionHandlerFilter exceptionHandlerFilter;
@@ -55,6 +56,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder);
     }
 
+    private AuthorizationFilter authorizationFilter() throws Exception {
+        AuthorizationFilter authorizationFilter = new AuthorizationFilter(authenticationManagerBean());
+        authorizationFilter.setFilterProcessesUrl(LOGIN_URL);
+        return authorizationFilter;
+    }
+
+    private AuthenticationFilter authenticationFilter() {
+        return new AuthenticationFilter();
+    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -66,9 +78,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new AuthorizationFilter(authenticationManagerBean()))
+                .addFilter(authorizationFilter())
                 .addFilterBefore(exceptionHandlerFilter, LogoutFilter.class)
-                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
