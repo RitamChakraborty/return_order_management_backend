@@ -40,3 +40,9 @@ spring:
       hibernate:
         format_sql: true
         enable_lazy_load_no_trans: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

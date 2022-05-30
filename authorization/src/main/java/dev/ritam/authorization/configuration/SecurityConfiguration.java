@@ -33,6 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // Swagger UI v3
             "/v3/api-docs/**",
             "/swagger-ui/**",
+            // Actuator
+            "/actuator/**",
             // Permitted urls
             "/signup",
             "/authorization/docs"

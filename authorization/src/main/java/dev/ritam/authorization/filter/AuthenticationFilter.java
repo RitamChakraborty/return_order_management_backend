@@ -30,14 +30,13 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             "/configuration/security",
             "/swagger-ui.html",
             "/webjars",
-            // Swagger UI v3
             "/v3/api-docs",
             "/swagger-ui",
             "/favicon.ico",
-            // Permitted urls
             "/login",
             "/signup",
-            "/authorization/docs"
+            "/authorization/docs",
+            "/actuator"
     };
 
     @Override
