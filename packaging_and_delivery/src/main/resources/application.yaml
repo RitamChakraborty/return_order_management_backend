@@ -15,6 +15,12 @@ logging:
   level:
     org.springframework.web: "debug"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 packaging-and-delivery-cost:
   packaging-items:
     integral-item: 100
