@@ -21,8 +21,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:return_order_management;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
-    username: ritam
-    password: password
+    username: ${DB_USERNAME:ritam}
+    password: ${DB_PASSWORD:password}
     embedded-database-connection: h2
   jpa:
     database: h2
@@ -64,4 +64,4 @@ component-processing:
 
 client:
   value: packaging-and-delivery
-  url: http://localhost:8082
+  url: ${PACKAGING_AND_DELIVERY_API_URL:http://localhost:8082}
