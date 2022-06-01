@@ -16,7 +16,8 @@ docker tag component_processing:1.0 ritamchakraborty/return_order_component_proc
 echo 'Pushing image to Docker Hub ...'
 docker push ritamchakraborty/return_order_component_processing:1.0
 echo 'Running docker image ...'
-docker run -it --name component-processing \
+docker run -it \
+  --name component-processing \
   --network return-order-network \
   -e CONFIG_SERVER_URL=http://config-server:8286 \
   -e DB_USERNAME=ritam \
