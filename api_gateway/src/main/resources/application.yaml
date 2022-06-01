@@ -23,8 +23,8 @@ spring:
 
 logging:
   file:
-    name: logs/api-gateway.log
-    path: logs
+    name: api_gateway/logs/api-gateway.log
+    path: api_gateway/logs
   level:
     org.springframework.web: "debug"
 

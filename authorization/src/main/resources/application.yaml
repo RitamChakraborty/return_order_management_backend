@@ -8,8 +8,8 @@ server:
 
 logging:
   file:
-    name: logs/authorization.log
-    path: logs
+    name: authorization/logs/authorization.log
+    path: authorization/logs
   level:
     org.springframework.web: "debug"
     org.hibernate: "error"

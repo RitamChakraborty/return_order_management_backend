@@ -45,7 +45,7 @@ class AuthenticationFilterTest {
     void doFilterInternalTest1() throws ServletException, IOException {
         // When
         Mockito.when(request.getServletPath())
-                .thenReturn("/login");
+                .thenReturn("/authorization/api/login");
         authenticationFilter.doFilterInternal(request, response, filterChain);
 
         // Then
@@ -57,7 +57,7 @@ class AuthenticationFilterTest {
     void doFilterInternalTest2() throws ServletException, IOException {
         // When
         Mockito.when(request.getServletPath())
-                .thenReturn("/signup");
+                .thenReturn("/authorization/api/signup");
         authenticationFilter.doFilterInternal(request, response, filterChain);
 
         // Then

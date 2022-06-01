@@ -8,13 +8,13 @@ spring:
     config:
       server:
         git:
-          uri: https://gitlab.com/ritam6/config-server
+          uri: https://gitlab.com/ritam6/config-server.git
           clone-on-start: true
 
 logging:
   file:
-    name: logs/config-server.log
-    path: logs
+    name: config_server/logs/config-server.log
+    path: config_server/logs
   level:
     org.springframework.web: "debug"
 

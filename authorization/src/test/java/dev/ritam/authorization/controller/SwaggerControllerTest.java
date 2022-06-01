@@ -15,7 +15,7 @@ class SwaggerControllerTest {
     @Test
     void docs() {
         // Given
-        String expected = "redirect:/swagger-ui/";
+        String expected = "redirect:/swagger-ui/index.html";
 
         // When
         String actual = underTest.docs();

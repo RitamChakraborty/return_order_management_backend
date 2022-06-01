@@ -6,8 +6,8 @@ server:
 
 logging:
   file:
-    name: logs/component-processing.log
-    path: logs
+    name: component_processing/logs/component-processing.log
+    path: component_proclogs
   level:
     org.springframework.web: "debug"
     org.hibernate: "error"

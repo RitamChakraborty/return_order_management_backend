@@ -10,8 +10,8 @@ spring:
 
 logging:
   file:
-    name: logs/packaging-and-delivery.log
-    path: logs
+    name: packaging_and_delivery/logs/packaging-and-delivery.log
+    path: packaging_and_delivery/logs
   level:
     org.springframework.web: "debug"
 
