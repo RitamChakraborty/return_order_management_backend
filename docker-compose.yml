@@ -1,32 +1,81 @@
-version: "3"
+version: "3.3"
 
 services:
-  sonarqube:
-    image: sonarqube:lts
-    depends_on:
-      - db
-    environment:
-      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
-      SONAR_JDBC_USERNAME: sonar
-      SONAR_JDBC_PASSWORD: sonar
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
+  service-registry:
+    image: ritamchakraborty/return_order_service_registry:1.0
     ports:
-      - "9000:9000"
-  db:
-    image: postgres:12
+      - 8761:8761
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 60s
+      retries: 5
+      timeout: 10s
+  config-server:
+    image: ritamchakraborty/return_order_config_server:1.0
     environment:
-      POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: sonar
-    volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
-
-volumes:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
-  postgresql:
-  postgresql_data:
+      SERVICE_REGISTRY_URL: http://service-registry:8761/eureka
+    ports:
+      - 8286:8286
+    depends_on:
+      - service-registry
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8286/actuator/health" ]
+      interval: 60s
+      retries: 5
+      timeout: 10s
+  authorization:
+    image: ritamchakraborty/return_order_authorization:1.0
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8286
+      DB_USERNAME: ritam
+      DB_PASSWORD: password
+      SECRET_KEY: secret
+    ports:
+      - 8080:8080
+    depends_on:
+      - config-server
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 60s
+      retries: 5
+      timeout: 10s
+  packaging-and-delivery:
+    image: ritamchakraborty/return_order_packaging_and_delivery:1.0
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8286
+    ports:
+      - 8082:8082
+    depends_on:
+      - config-server
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
+      interval: 60s
+      retries: 5
+      timeout: 10s
+  component-processing:
+    image: ritamchakraborty/return_order_component_processing:1.0
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8286
+      DB_USERNAME: ritam
+      DB_PASSWORD: password
+      PACKAGING_AND_DELIVERY_API_URL: http://packaging-and-delivery:8082
+    ports:
+      - 8081:8081
+    depends_on:
+      - config-server
+      - packaging-and-delivery
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
+      interval: 60s
+      retries: 5
+      timeout: 10s
+  api-gateway:
+    image: ritamchakraborty/return_order_api_gateway:1.0
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8286
+    ports:
+      - 8181:8181
+    depends_on:
+      - config-server
+      - authorization
+      - component-processing
