@@ -11,7 +11,7 @@ echo 'Removing old Docker image ...'
 docker rmi ritamchakraborty/return_order_config_server:1.0
 docker rmi config_server:1.0
 echo 'Creating Docker Image ...'
-mvn spring-boot:build-image
+docker build -t config_server:1.0 .
 docker tag config_server:1.0 ritamchakraborty/return_order_config_server:1.0
 echo 'Pushing image to Docker Hub ...'
 docker push ritamchakraborty/return_order_config_server:1.0
