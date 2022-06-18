@@ -1,15 +1,17 @@
-version: "3.3"
+version: "2.1"
 
 services:
   service-registry:
     image: ritamchakraborty/return_order_service_registry:1.0
+    command: bash -c "apt-get update && apt-get install curl"
     ports:
       - 8761:8761
+    restart: on-failure
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
-      interval: 60s
+      test: "curl --fail --silent localhost:8761/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
       retries: 5
-      timeout: 10s
   config-server:
     image: ritamchakraborty/return_order_config_server:1.0
     environment:
@@ -17,12 +19,14 @@ services:
     ports:
       - 8286:8286
     depends_on:
-      - service-registry
+      service-registry:
+        condition: service_healthy
+    restart: on-failure
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8286/actuator/health" ]
-      interval: 60s
+      test: "curl --fail --silent localhost:8286/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
       retries: 5
-      timeout: 10s
   authorization:
     image: ritamchakraborty/return_order_authorization:1.0
     environment:
@@ -33,12 +37,14 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - config-server
+      config-server:
+        condition: service_healthy
+    restart: on-failure
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-      interval: 60s
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
       retries: 5
-      timeout: 10s
   packaging-and-delivery:
     image: ritamchakraborty/return_order_packaging_and_delivery:1.0
     environment:
@@ -46,12 +52,14 @@ services:
     ports:
       - 8082:8082
     depends_on:
-      - config-server
+      config-server:
+        condition: service_healthy
+    restart: on-failure
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
-      interval: 60s
+      test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
       retries: 5
-      timeout: 10s
   component-processing:
     image: ritamchakraborty/return_order_component_processing:1.0
     environment:
@@ -62,13 +70,16 @@ services:
     ports:
       - 8081:8081
     depends_on:
-      - config-server
-      - packaging-and-delivery
+      config-server:
+        condition: service_healthy
+      packaging-and-delivery:
+        condition: service_healthy
+    restart: on-failure
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
-      interval: 60s
+      test: "curl --fail --silent localhost:8081/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
       retries: 5
-      timeout: 10s
   api-gateway:
     image: ritamchakraborty/return_order_api_gateway:1.0
     environment:
@@ -76,6 +87,10 @@ services:
     ports:
       - 8181:8181
     depends_on:
-      - config-server
-      - authorization
-      - component-processing
+      config-server:
+        condition: service_healthy
+      authorization:
+        condition: service_healthy
+      component-processing:
+        condition: service_healthy
+    restart: on-failure
