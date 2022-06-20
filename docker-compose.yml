@@ -3,7 +3,6 @@ version: "2.1"
 services:
   service-registry:
     image: ritamchakraborty/return_order_service_registry:1.0
-    command: bash -c "apt-get update && apt-get install curl"
     ports:
       - 8761:8761
     restart: on-failure
