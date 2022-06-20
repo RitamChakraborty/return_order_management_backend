@@ -1,3 +1,3 @@
 build:
   docker:
-    web: Dockerfile
+    service-registry: service_registry/heroku/Dockerfile
