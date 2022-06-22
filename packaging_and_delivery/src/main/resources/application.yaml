@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: ${PORT:8082}
 
 spring:
   application:
@@ -10,8 +10,8 @@ spring:
 
 logging:
   file:
-    name: packaging_and_delivery/logs/packaging-and-delivery.log
-    path: packaging_and_delivery/logs
+    name: /var/logs/packaging-and-delivery.log
+    path: /var/logs
   level:
     org.springframework.web: "debug"
 
