@@ -1,5 +1,7 @@
 build:
   docker:
     web: Heroku.Dockerfile
+  config:
+    SERVICE_REGISTRY_URL: https://return-order-service-registry.herokuapp.com/eureka
 run:
-  web: java -Xms256m -Xmx512m -Dserver.port=$PORT -jar app.jar
+  web: java -XX:+UseSerialGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70 -XX:MaxMetaspaceSize=128m -Xss512k -Xmn64m -Xms128m -Xmx256m -XX:MaxRAM=256m $JAVA_OPTS -Dserver.port=$PORT -jar app.jar
