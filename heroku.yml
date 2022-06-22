@@ -1,4 +1,0 @@
-build:
-  docker:
-    service_registry: service_registry/Heroku.Dockerfile
-    coinfig_server: config_server/Heroku.Dockerfile
