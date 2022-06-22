@@ -1,0 +1,5 @@
+build:
+  docker:
+    web: Heroku.Dockerfile
+run:
+  web: java -Xms256m -Xmx512m -Dserver.port=$PORT -jar app.jar
