@@ -1,5 +1,5 @@
 server:
-  port: 8181
+  port: ${PORT:8181}
 
 spring:
   application:
@@ -23,8 +23,8 @@ spring:
 
 logging:
   file:
-    name: api_gateway/logs/api-gateway.log
-    path: api_gateway/logs
+    name: /var/logs/api-gateway.log
+    path: /var/logs
   level:
     org.springframework.web: "debug"
 

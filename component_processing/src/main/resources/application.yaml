@@ -1,13 +1,13 @@
 server:
-  port: 8081
+  port: ${PORT:8081}
   error:
     include-message: always
     include-binding-errors: always
 
 logging:
   file:
-    name: component_processing/logs/component-processing.log
-    path: component_proclogs
+    name: /var/logs/component-processing.log
+    path: /var/logs
   level:
     org.springframework.web: "debug"
     org.hibernate: "error"
