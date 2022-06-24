@@ -1,0 +1,7 @@
+build:
+  docker:
+    web: Heroku.Dockerfile
+  config:
+    CONFIG_SERVER_URL: https://config-server-ritam.herokuapp.com
+run:
+  web: java -XX:+UseSerialGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70 -XX:MaxMetaspaceSize=128m -Xss512k -Xmn64m -Xms128m -Xmx256m -XX:MaxRAM=256m $JAVA_OPTS -Dserver.port=$PORT -jar app.jar --server.port=$PORT
