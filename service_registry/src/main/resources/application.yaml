@@ -11,8 +11,8 @@ spring:
 
 logging:
   file:
-    name: service_registry/logs/service-registry.log
-    path: service_registry/logs
+    name: /var/logs/service-registry.log
+    path: /var/logs
   level:
     org.springframework.web: "debug"
 

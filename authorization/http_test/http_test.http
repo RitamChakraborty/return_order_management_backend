@@ -1,5 +1,5 @@
 ### Login with correct username and password
-POST http://localhost:8080/authorization/api/login
+POST https://authorization-ritam.herokuapp.com/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=ritam@gmail.com&password=password
@@ -40,7 +40,7 @@ Accept: application/json
 ### Get Customer with valid token
 GET http://localhost:8080/authorization/api/authenticate
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjI5NzEyODQzNjM5NjMwMDB9.p7m5gaEljNkTWs7YB6Ys4BUcFtEW3qFGIl3eHkVGIQXLSgD96VXoLLKNsMrFWO5nobgpbYWs0iDrwKtDWqn3Cw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTYxMDA2MTQsImlhdCI6MTY1NjA5ODgxNH0.8Uta25aPVz5XZYXIV_pGV10hr3R9ixS5crnSXiNEI5Wlw_P9_5BmmHH4cEBgSHoph1TK9cOC_pT8u5XTVMJvOQ
 
 
 ### Get Customer with invalid token
