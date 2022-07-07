@@ -62,6 +62,36 @@ component-processing:
     processing-duration: 2
     processing-charge: 300
 
-client:
-  value: packaging-and-delivery
-  url: ${PACKAGING_AND_DELIVERY_API_URL:http://localhost:8082}
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: https://service-registry-ritam.herokuapp.com/eureka
+
+---
+
+spring:
+  profiles:
+    active: dev
