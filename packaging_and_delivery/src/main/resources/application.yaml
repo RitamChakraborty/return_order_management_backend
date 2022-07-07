@@ -30,3 +30,37 @@ packaging-and-delivery-cost:
   delivery-items:
     integral-item: 200
     accessory: 100
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: https://service-registry-ritam.herokuapp.com/eureka
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+---
+
+spring:
+  profiles:
+    active: dev
