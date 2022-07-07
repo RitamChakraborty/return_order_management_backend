@@ -36,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             // Actuator
             "/actuator/**",
             // Permitted urls
+            "/authorization/api/login",
             "/authorization/api/signup",
             "/authorization/api/docs"
     };
@@ -43,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;
     private final ExceptionHandlerFilter exceptionHandlerFilter;
+    private final PropertyValuesConfiguration propertyValuesConfiguration;
 
     @Bean
     @Override
@@ -57,15 +59,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private AuthorizationFilter authorizationFilter() throws Exception {
-        AuthorizationFilter authorizationFilter = new AuthorizationFilter(authenticationManagerBean());
+        AuthorizationFilter authorizationFilter = new AuthorizationFilter(authenticationManagerBean(), propertyValuesConfiguration);
         authorizationFilter.setFilterProcessesUrl(LOGIN_URL);
         return authorizationFilter;
     }
 
     private AuthenticationFilter authenticationFilter() {
-        return new AuthenticationFilter();
+        return new AuthenticationFilter(propertyValuesConfiguration);
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

@@ -1,11 +1,10 @@
 package dev.ritam.authorization.filter;
 
+import dev.ritam.authorization.configuration.PropertyValuesConfiguration;
 import dev.ritam.authorization.entity.Customer;
 import dev.ritam.authorization.exception.BadRequestException;
 import dev.ritam.authorization.model.CustomerRequest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +27,6 @@ import java.io.IOException;
 
 @ExtendWith(MockitoExtension.class)
 class AuthorizationFilterTest {
-    static final String SECRET_KEY = System.getenv("SECRET_KEY");
     @Mock
     HttpServletRequest request;
     @Mock
@@ -41,13 +39,10 @@ class AuthorizationFilterTest {
     Authentication authentication;
     @Mock
     AuthenticationException authenticationException;
+    @Mock
+    PropertyValuesConfiguration propertyValuesConfiguration;
     @InjectMocks
     AuthorizationFilter authorizationFilter;
-
-    @BeforeEach
-    void setUp() {
-        Assumptions.assumeTrue(SECRET_KEY != null);
-    }
 
     @Test
     void attemptAuthenticationTest() {
@@ -132,6 +127,8 @@ class AuthorizationFilterTest {
                 .thenReturn(servletOutputStream);
         Mockito.when(authentication.getPrincipal())
                 .thenReturn(customer);
+        Mockito.when(propertyValuesConfiguration.getSecretKey())
+                .thenReturn("secret");
         authorizationFilter.successfulAuthentication(request, response, filterChain, authentication);
 
 
@@ -166,6 +163,8 @@ class AuthorizationFilterTest {
                 .thenReturn(servletOutputStream);
         Mockito.when(authentication.getPrincipal())
                 .thenReturn(customerEmail);
+        Mockito.when(propertyValuesConfiguration.getSecretKey())
+                .thenReturn("secret");
         authorizationFilter.successfulAuthentication(request, response, filterChain, authentication);
 
         // Then

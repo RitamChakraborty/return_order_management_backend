@@ -2,13 +2,14 @@ package dev.ritam.authorization.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import dev.ritam.authorization.configuration.PropertyValuesConfiguration;
 import dev.ritam.authorization.exception.InvalidJWTException;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -34,12 +35,10 @@ class AuthenticationFilterTest {
     HttpServletResponse response;
     @Mock
     FilterChain filterChain;
+    @Mock
+    PropertyValuesConfiguration propertyValuesConfiguration;
+    @InjectMocks
     AuthenticationFilter authenticationFilter;
-
-    @BeforeEach
-    void setup() {
-        authenticationFilter = new AuthenticationFilter();
-    }
 
     @Test
     void doFilterInternalTest1() throws ServletException, IOException {
@@ -87,9 +86,10 @@ class AuthenticationFilterTest {
     @Test
     void doFilterInternalTest4() throws ServletException, IOException {
         // Given
+        Mockito.when(propertyValuesConfiguration.getSecretKey())
+                .thenReturn("secret");
         String customerEmail = "ritam@gmail.com";
-        Assertions.assertNotNull(System.getenv("SECRET_KEY"));
-        final String SECRET_KEY = System.getenv("SECRET_KEY");
+        final String SECRET_KEY = propertyValuesConfiguration.getSecretKey();
         final int TOKEN_EXPIRATION_IN_MINUTE = 5;
         final var now = Instant.now();
         var algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
@@ -127,9 +127,11 @@ class AuthenticationFilterTest {
                 .thenReturn("test");
         Mockito.when(request.getHeader(HttpHeaders.AUTHORIZATION))
                 .thenReturn("Bearer bad_token");
+        Mockito.when(propertyValuesConfiguration.getSecretKey())
+                .thenReturn("secret");
 
         // Then
-        Assertions.assertNotNull(System.getenv("SECRET_KEY"));
+
         Assertions.assertThrows(
                 InvalidJWTException.class,
                 () -> authenticationFilter.doFilterInternal(request, response, filterChain)
@@ -145,9 +147,10 @@ class AuthenticationFilterTest {
                 .thenReturn("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9" +
                         ".eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTIxMTM4OTAsImlhdCI6MTY1MjExMjA5MH0" +
                         ".8eT7jh3sR2sM3rYDMVIsCaH_gdVZ6BCSPCYZ71SOhm1vvxokw9oQDqnSyhry9izs4UQhUlBO8SwtVbRmbz0X3A");
+        Mockito.when(propertyValuesConfiguration.getSecretKey())
+                .thenReturn("secret");
 
         // Then
-        Assertions.assertNotNull(System.getenv("SECRET_KEY"));
         Assertions.assertThrows(
                 InvalidJWTException.class,
                 () -> authenticationFilter.doFilterInternal(request, response, filterChain)

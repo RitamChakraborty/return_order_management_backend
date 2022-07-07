@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import dev.ritam.authorization.configuration.PropertyValuesConfiguration;
 import dev.ritam.authorization.exception.InvalidJWTException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
@@ -20,8 +22,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
+@RequiredArgsConstructor
 public class AuthenticationFilter extends OncePerRequestFilter {
-    private static final String SECRET_KEY = System.getenv("SECRET_KEY");
     private static final String[] AUTH_WHITELIST = {
             "/v2/api-docs",
             "/swagger-resources",
@@ -36,8 +38,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             "/authorization/api/login",
             "/authorization/api/signup",
             "/authorization/api/docs",
-            "/actuator"
+            "/actuator",
+            "/api"
     };
+    private final PropertyValuesConfiguration propertyValuesConfiguration;
 
     @Override
     protected void doFilterInternal(
@@ -65,7 +69,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 try {
                     token = token.replace("Bearer ", "");
 
-                    var algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+                    var algorithm = Algorithm.HMAC512(
+                            propertyValuesConfiguration
+                                    .getSecretKey()
+                                    .getBytes(StandardCharsets.UTF_8)
+                    );
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     var decodedJWT = verifier.verify(token);
                     String username = decodedJWT.getSubject();

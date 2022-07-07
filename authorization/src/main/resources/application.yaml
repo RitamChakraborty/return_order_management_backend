@@ -10,9 +10,6 @@ logging:
   file:
     name: authorization/logs/authorization.log
     path: authorization/logs
-  level:
-    org.springframework.web: "debug"
-    org.hibernate: "error"
 
 spring:
   application:
@@ -26,8 +23,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:return_order_management;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME:ritam}
+    password: ${DB_PASSWORD:password}
     embedded-database-connection: h2
   jpa:
     database: h2
@@ -46,3 +43,41 @@ management:
     web:
       exposure:
         include: "*"
+
+authorization:
+  jwt:
+    secret-key: ${SECRET_KEY:secret}
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: https://service-registry-ritam.herokuapp.com/eureka
+
+---
+
+spring:
+  profiles:
+    active: dev

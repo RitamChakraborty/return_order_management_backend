@@ -3,6 +3,7 @@ package dev.ritam.authorization.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.ritam.authorization.configuration.PropertyValuesConfiguration;
 import dev.ritam.authorization.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,12 +28,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
     private static final int TOKEN_EXPIRATION_IN_MINUTE = 30;
-    private static final String SECRET_KEY = System.getenv("SECRET_KEY");
     private final AuthenticationManager authenticationManager;
+    private final PropertyValuesConfiguration propertyValuesConfiguration;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -64,7 +65,11 @@ public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
 
         if (username != null) {
             final var now = Instant.now();
-            var algorithm = Algorithm.HMAC512(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+            var algorithm = Algorithm.HMAC512(
+                    propertyValuesConfiguration
+                            .getSecretKey()
+                            .getBytes(StandardCharsets.UTF_8)
+            );
             String token = JWT.create()
                     .withSubject(username)
                     .withIssuedAt(Date.from(now))
