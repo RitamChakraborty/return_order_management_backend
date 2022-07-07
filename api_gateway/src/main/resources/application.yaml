@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: api-gateway
+  mvc:
+    async:
+      request-timeout: 5000
   cloud:
     gateway:
       metrics:
@@ -25,12 +28,6 @@ logging:
   file:
     name: /var/logs/api-gateway.log
     path: /var/logs
-  level:
-    org.springframework.web: "debug"
-
-eureka:
-  instance:
-    prefer-ip-address: true
 
 management:
   endpoints:
@@ -40,3 +37,37 @@ management:
   endpoint:
     gateway:
       enabled: true
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: https://service-registry-ritam.herokuapp.com/eureka
+
+---
+
+spring:
+  profiles:
+    active: dev
