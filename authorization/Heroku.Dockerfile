@@ -1,5 +1,6 @@
-FROM ritamchakraborty/return_order_authorization:1.0
-ARG CONFIG_SERVER_URL=https://config-server-ritam.herokuapp.com
+FROM openjdk:11
+ARG JAR_FILE=target/*.jar
 ARG DB_USERNAME=ritam
 ARG DB_PASSWORD=password
 ARG SECRET_KEY=secret
+COPY $JAR_FILE app.jar
