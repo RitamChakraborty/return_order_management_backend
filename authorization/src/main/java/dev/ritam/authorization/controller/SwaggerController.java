@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/authorization/api")
 public class SwaggerController {
-    @GetMapping("/docs")
+    @GetMapping
     public String docs() {
         return "redirect:/swagger-ui/index.html";
     }
