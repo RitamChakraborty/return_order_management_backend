@@ -32,7 +32,7 @@ public class RouteConfiguration {
                                         .setFallbackUri("forward:/component-processing-fallback")
                                 )
                         )
-                        .uri("http://localhost:8081")
+                        .uri("lb://component-processing")
                 )
                 .route(predicateSpec -> predicateSpec
                         .path("/authorization/api/**")
