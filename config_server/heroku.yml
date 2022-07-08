@@ -1,7 +1,0 @@
-build:
-  docker:
-    web: Heroku.Dockerfile
-  config:
-    SERVICE_REGISTRY_URL: https://service-registry-ritam.herokuapp.com/eureka
-run:
-  web: java -XX:+UseSerialGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70 -XX:MaxMetaspaceSize=128m -Xss512k -Xmn64m -Xms128m -Xmx256m -XX:MaxRAM=256m $JAVA_OPTS -Dserver.port=$PORT -jar app.jar
