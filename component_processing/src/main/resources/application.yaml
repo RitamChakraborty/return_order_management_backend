@@ -8,9 +8,6 @@ logging:
   file:
     name: /var/logs/component-processing.log
     path: /var/logs
-  level:
-    org.springframework.web: "debug"
-    org.hibernate: "error"
 
 spring:
   application:
@@ -75,20 +72,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: https://service-registry-ritam.herokuapp.com/eureka
 
 ---
 
