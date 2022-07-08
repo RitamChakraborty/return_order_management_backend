@@ -48,5 +48,21 @@ eureka:
 ---
 
 spring:
+  config:
+    activate:
+      on-profile: docker
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://service-registry:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+---
+
+spring:
   profiles:
-    active: dev
+    active: ${PROFILE:dev}

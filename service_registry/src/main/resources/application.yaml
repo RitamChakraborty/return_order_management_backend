@@ -31,4 +31,4 @@ management:
 
 spring:
   profiles:
-    active: dev
+    active: ${PROFILE:dev}

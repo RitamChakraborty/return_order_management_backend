@@ -20,6 +20,6 @@ docker run \
   -it \
   --name packaging-and-delivery \
   --network return-order-network \
-  -e CONFIG_SERVER_URL=http://config-server:8286 \
+  -e PROFILE=docker \
   -p 8082:8082 \
   ritamchakraborty/return_order_packaging_and_delivery:1.0
