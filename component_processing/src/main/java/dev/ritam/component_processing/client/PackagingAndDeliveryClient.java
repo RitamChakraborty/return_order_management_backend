@@ -7,7 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient("PACKAGING-AND-DELIVERY")
+@FeignClient(
+        value = "${client.value}",
+        url = "${client.url}"
+)
 public interface PackagingAndDeliveryClient {
     @GetMapping("/packaging-and-delivery/api/packaging-and-delivery-charge")
     @Headers(value = {"Content-Type: application/json", "Accept: application/json"})
