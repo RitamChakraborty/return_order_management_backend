@@ -19,9 +19,8 @@ echo 'Running docker image ...'
 docker run -it \
   --name component-processing \
   --network return-order-network \
-  -e CONFIG_SERVER_URL=http://config-server:8286 \
+  -e PROFILE=docker \
   -e DB_USERNAME=ritam \
   -e DB_PASSWORD=password \
-  -e PACKAGING_AND_DELIVERY_API_URL=http://packaging-and-delivery:8082 \
   -p 8081:8081 \
   ritamchakraborty/return_order_component_processing:1.0
