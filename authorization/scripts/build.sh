@@ -20,7 +20,7 @@ docker run \
   -it \
   --name authorization \
   --network return-order-network \
-  -e CONFIG_SERVER_URL=http://config-server:8286 \
+  -e PROFILE=docker \
   -e DB_USERNAME=ritam \
   -e DB_PASSWORD=password \
   -e SECRET_KEY=secret \
