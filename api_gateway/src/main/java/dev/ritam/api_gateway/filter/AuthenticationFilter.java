@@ -4,6 +4,7 @@ import dev.ritam.api_gateway.exception.AuthenticationTokenNotFoundException;
 import dev.ritam.api_gateway.exception.BadTokenException;
 import dev.ritam.api_gateway.model.CustomerResponse;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -16,6 +17,7 @@ import reactor.core.publisher.Mono;
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
     private static final String CUSTOMER_EMAIL_HEADER = "x-auth-customer-email";
     private WebClient.Builder webClientBuilder;
@@ -40,6 +42,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     Objects.requireNonNull(exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION)).get(0);
             String authenticationUrl = config.getAuthenticationUrl();
 
+            log.info("AuthenticationFilter.GatewayFilter apply(Config config): Authorization Token: {}", authorizationHeader);
+
             return webClientBuilder
                     .build()
                     .get()
@@ -48,6 +52,10 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     .retrieve()
                     .onStatus(HttpStatus::isError, response -> Mono.error(new BadTokenException("Bad token")))
                     .bodyToMono(CustomerResponse.class)
+                    .map(customerResponse -> {
+                        log.info("AuthenticationFilter.GatewayFilter apply(Config config): CustomerResponse: {}", customerResponse.toString());
+                        return customerResponse;
+                    })
                     .map(customerResponse -> {
                                 exchange
                                         .getRequest()

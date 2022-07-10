@@ -1,5 +1,6 @@
 ### Get process defail
-POST http://localhost:8181/component-processing/api/process-detail
+POST https://api-gateway-ritam.herokuapp.com/component-processing/api/process-detail
+#POST http://localhost:8181/component-processing/api/process-detail
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTc0MjYwNjcsImlhdCI6MTY1NzQyNDI2N30.n62Yzi8iojkQwB5jW9D6c6KJXMfZ89N_Z8DAib9hVZUAB0nIrJHVvcPQKncRjHGxvHlOF9ZkiMc4YbtltufcJA
 Content-Type: application/json
 Accept: application/json
