@@ -9,12 +9,19 @@ spring:
       request-timeout: 5000
   cloud:
     gateway:
-      metrics:
-        enabled: true
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      routes:
+        - id: authrization
+          uri: https://authorization-ritam.herokuapp.com
+          predicates:
+            - Path=/authorization/**
+        - id: component-processing
+          uri: https://component-processing-ritam.herokuapp.com
+          predicates:
+            - Path=/component-processing/**
+          filters:
+            - name: AuthenticationFilter
+              args:
+                authenticationUrl: https://authorization-ritam.herokuapp.com
       globalcors:
         cors-configurations:
           '[/**]':
@@ -37,25 +44,3 @@ management:
   endpoint:
     gateway:
       enabled: true
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: docker
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://service-registry:8761/eureka
-  instance:
-    prefer-ip-address: true
-
----
-
-spring:
-  profiles:
-    active: ${PROFILE:dev}

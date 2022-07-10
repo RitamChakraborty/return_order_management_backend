@@ -1,6 +1,6 @@
 ### Get process defail
 POST http://localhost:8181/component-processing/api/process-detail
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTczMTY0MDMsImlhdCI6MTY1NzMxNDYwM30.eQ2hA3WNk45rDXLqcPLs23qwf3dAeMbB5iQ-hutX2oA8fNYufzI7PDcUQyK7-8KxW6qktO3768GdzdH7bLWRwA
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTc0MjMwMDMsImlhdCI6MTY1NzQyMTIwM30.OTDOtbKK-3LcqdPjlWm6YSsAPwoNZ76TaDLCZ_r-hfoJktbBvJf9QPi0lSQ1B4rzx1DB4J7_0z2DrFD0POAyrg
 Content-Type: application/json
 Accept: application/json
 

@@ -1,5 +1,5 @@
 ### Login with correct username and password
-POST http://localhost:8181/authorization/api/login
+POST https://api-gateway-ritam.herokuapp.com/authorization/api/login
 Content-Type: application/x-www-form-urlencoded
 
 username=ritam@gmail.com&password=password
