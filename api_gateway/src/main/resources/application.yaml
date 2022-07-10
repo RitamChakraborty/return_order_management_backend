@@ -35,6 +35,9 @@ logging:
   file:
     name: /var/logs/api-gateway.log
     path: /var/logs
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
 
 management:
   endpoints:
