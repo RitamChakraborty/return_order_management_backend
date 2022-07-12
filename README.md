@@ -441,6 +441,14 @@ Testing is done though *JUnit5* and *Mockito*
 
 ![packaging-and-delivery-sonarqube](./.screenshots/packaging-and-delivery-sonarqube.png)
 
+## Documentation
+
+The documentation is done through `springdoc-openapi-ui` and `swagger`. visit the `'/'` endpoint of an api to find the documentation. 
+
+*Swagger Documentation for Authorization*
+
+![authorization-docs](./.screenshots/authorization-docs.png)
+
 ## Build
 
 The project was build with *Maven* and *Docker*. Each project has a build script through which every project is built with maven and then a docker image is build and pushed to docker hub.
