@@ -5,7 +5,7 @@ Accept: application/json
 
 {
   "name": "Miss Mahanty",
-  "contactNumber": "7980546384",
+  "contactNumber": "7986546384",
   "componentType": "integral-item",
   "componentName": "lipstick",
   "quantity": 5
@@ -41,8 +41,8 @@ Accept: application/json
 
 {
   "processRequest": {
-    "name": "Miss Mahanty",
-    "contactNumber": "7980546384",
+    "name": "Sutika Mahanty",
+    "contactNumber": "7986546384",
     "componentType": "integral-item",
     "componentName": "lipstick",
     "quantity": 5
@@ -63,6 +63,6 @@ Accept: application/json
 
 
 ### Get single order
-GET http://localhost:8081/component-processing/api/order-details?orderId=1
+GET http://localhost:8081/component-processing/api/order-details?orderId=2
 x-auth-customer-email: ritam@gmail.com
 Accept: application/json

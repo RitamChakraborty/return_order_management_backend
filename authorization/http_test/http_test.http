@@ -40,8 +40,7 @@ Accept: application/json
 ### Get Customer with valid token
 GET http://localhost:8080/authorization/api/authenticate
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTYxMDA2MTQsImlhdCI6MTY1NjA5ODgxNH0.8Uta25aPVz5XZYXIV_pGV10hr3R9ixS5crnSXiNEI5Wlw_P9_5BmmHH4cEBgSHoph1TK9cOC_pT8u5XTVMJvOQ
-
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXRhbUBnbWFpbC5jb20iLCJleHAiOjE2NTc2MDcxNzcsImlhdCI6MTY1NzYwNTM3N30.381ML9ZV9_uxxoAbkhgSCTP3nRfyr1Ige23BjuKU14YVNX54HIpJ1rJYocBWqMLO_BiyQjchfm5wU1mPAkbc0g
 
 ### Get Customer with invalid token
 GET http://localhost:8080/authorization/api/authenticate
@@ -59,7 +58,7 @@ Content-Type: application/json
   "password": "Password@123",
   "firstName": "Shuktika",
   "lastName": "Mahanty",
-  "contactNumber": "7086653484"
+  "contactNumber": "7086623484"
 }
 
 ### Login with new user
