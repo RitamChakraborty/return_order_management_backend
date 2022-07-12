@@ -9,6 +9,6 @@ echo 'Running jacoco:report...'
 mvn jacoco:report
 echo 'Running sonar:sonar...'
 mvn sonar:sonar \
-  -Dsonar.projectKey=component_processing \
+  -Dsonar.projectKey=authorization \
   -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=e67364b1014612de1b13c21882fd1eb92110fec5
+  -Dsonar.login=dc7fa119cf886f7d7c604216663bbf1cfc067f8a

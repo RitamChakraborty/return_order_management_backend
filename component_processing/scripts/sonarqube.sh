@@ -11,4 +11,4 @@ echo 'Running sonar:sonar...'
 mvn sonar:sonar \
   -Dsonar.projectKey=component_processing \
   -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=e67364b1014612de1b13c21882fd1eb92110fec5
+  -Dsonar.login=51df199b1d72bb0f6befb770d1da030b44b44c48

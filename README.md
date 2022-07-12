@@ -3,7 +3,7 @@
 Backend of the **Return Order Management** full stack application written with *Java* and *Spring Boot* 
 in *Microservices* architecture.
 
-The application is consist of 5 microservices. 
+The application is consisted of 5 microservices. 
 
 - [Service Registry](#service-registry)
 - [Authorization](#authorization)
@@ -121,7 +121,7 @@ Content-Type: application/json
 
 ### Packaging and Delivery
 
-Packaging and Delivery is middle wire microservice. It's only responsible for doing the price calculation for packaging and delivery. I'll be called by the Component Processing microservice through feign client.
+Packaging and Delivery is middle wire microservice. It's only responsible for doing the price calculation for packaging and delivery. It'll be called by the Component Processing microservice through feign client.
 
 #### Endpoints
 
@@ -401,3 +401,122 @@ Accept: application/json
 - lombok
 - spring-boot-starter-test
 - reactor-test
+
+## Testing 
+
+Testing is done though *JUnit5* and *Mockito*
+
+## Code Coverage and Quality
+
+*JaCoCo* dependency is used to generated the coverage report. And *Sonarqube* is used for code quality checking. 
+
+> **Authorization**
+
+*Code Coverage*
+
+![authorization-coverage-report](./.screenshots/authorization-coverage-report.png)
+
+*Code Quality*
+
+![authorization-sonarqube](./.screenshots/authorization-sonarqube.png)
+
+> **Component Processing**
+
+*Code Coverage*
+
+![component-processing-coverage-report](./.screenshots/component-processing-coverage-report.png)
+
+
+*Code Quality*
+
+![component-processing-sonarqube](./.screenshots/component-processing-sonarqube.png)
+
+> **Packaging and Delivery**
+
+*Code Coverage*
+
+![packaging-and-delivery-coverage-report](./.screenshots/packaging-and-delivery-coverage-report.png)
+
+*Code Quality*
+
+![packaging-and-delivery-sonarqube](./.screenshots/packaging-and-delivery-sonarqube.png)
+
+## Build
+
+The project was build with *Maven* and *Docker*. Each project has a build script through which every project is built with maven and then a docker image is build and pushed to docker hub.
+
+Here's once such build script. 
+
+```sh
+#!/bin/bash
+
+cd "${BASH_SOURCE%/*}" || exit
+cd ..
+
+echo 'Creating JAR ...'
+mvn clean install
+echo 'Removing old Docker container ...'
+docker container rm -f authorization
+echo 'Removing old Docker image ...'
+docker rmi ritamchakraborty/return_order_authorization:1.0
+docker rmi authorization:1.0
+echo 'Creating Docker Image ...'
+docker build -t authorization:1.0 .
+docker tag authorization:1.0 ritamchakraborty/return_order_authorization:1.0
+echo 'Pushing image to Docker Hub ...'
+docker push ritamchakraborty/return_order_authorization:1.0
+echo 'Running Docker Image ...'
+docker run \
+  -it \
+  --name authorization \
+  --network return-order-network \
+  -e PROFILE=docker \
+  -e DB_USERNAME=ritam \
+  -e DB_PASSWORD=password \
+  -e SECRET_KEY=secret \
+  -p 8080:8080 \
+  ritamchakraborty/return_order_authorization:1.0
+```
+
+*Here is the list of all the docker images*
+
+| Project | Docker Image |
+| ------- | ------------ |
+| Service Registry | [ritamchakraborty/return_order_service_registry:tagname](https://hub.docker.com/repository/docker/ritamchakraborty/return_order_service_registry) |
+| Authorization | [ritamchakraborty/return_order_authorization:tagname](https://hub.docker.com/repository/docker/ritamchakraborty/return_order_authorization) |
+| Component Processing | [ritamchakraborty/return_order_component_processing:tagname](https://hub.docker.com/repository/docker/ritamchakraborty/return_order_component_processing) |
+| Packaging and Delivery | [ritamchakraborty/return_order_packaging_and_delivery:tagname](https://hub.docker.com/repository/docker/ritamchakraborty/return_order_packaging_and_delivery) |
+| API Gateway | [ritamchakraborty/return_order_api_gateway](https://hub.docker.com/repository/docker/ritamchakraborty/return_order_api_gateway) |
+
+## Deploy 
+
+All the microservices are deployed to Heorku with [heroku.yml](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml) file. 
+
+*Here is an example of a heroku.yml file*
+
+```yml
+build:
+  docker:
+    web: Heroku.Dockerfile
+  config:
+    CONFIG_SERVER_URL: https://config-server-ritam.herokuapp.com
+    DB_USERNAME: ritam
+    DB_PASSWORD: password
+    SECRET_KEY: secret-key
+run:
+  web: java -XX:+UseSerialGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70 -XX:MaxMetaspaceSize=128m -Xss512k -Xmn64m -Xms128m -Xmx256m -XX:MaxRAM=256m $JAVA_OPTS -Dserver.port=$PORT -jar app.jar
+```
+
+## Running Locally
+
+There is a [docker-compose.yml](./docker-compose.yml) file which uses health checks to run the microservices one after the other. 
+
+Just run the below command from the root of the project folder to run the project locally. You must have `docker` and `docker-compose` installed in your system.
+
+```sh
+docker-compose up
+```
+
+## Frontend
+
+The frontend for this project is built with *Angular*. Checkout [return_order_management_frontend](https://github.com/RitamChakraborty/return_order_management_frontend).
