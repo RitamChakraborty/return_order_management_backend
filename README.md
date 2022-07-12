@@ -3,6 +3,18 @@
 Backend of the **Return Order Management** full stack application written with *Java* and *Spring Boot* 
 in *Microservices* architecture.
 
+## Table of Content
+
+- [Services](#services)
+- [Testing](#testing)
+- [Documentation](#documentation)
+- [Build](#build)
+- [Deploy](#deploy)
+- [Running Locally](#running-locally)
+- [Frontend](#frontend)
+
+## Services
+
 The application is consisted of 5 microservices. 
 
 - [Service Registry](#service-registry)
